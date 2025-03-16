@@ -53,6 +53,15 @@ public class TargetingManager : MonoBehaviour
                     });
                 }
                 break;
+            case TargetingType.BACKLINE_ENEMY:
+                foreach(UnitSlot slot in UnitSlotGroups.Instance.enemyBackline)
+                {
+                    if (!slot.IsEmpty()) slot.Activate(() =>
+                    {
+                        enactPlayerAbilities.EnactAbility(slot, activeUnit, ability);
+                    });
+                }
+                break;
         }
     }
 

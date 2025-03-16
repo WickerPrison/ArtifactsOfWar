@@ -1,6 +1,6 @@
 using UnityEngine;
 using System;
-using System.Collections;
+using System.Collections.Generic;
 
 public class EnemyUnit : MonoBehaviour, ITakeTurns, IAmUnit
 {
@@ -11,7 +11,7 @@ public class EnemyUnit : MonoBehaviour, ITakeTurns, IAmUnit
     int health;
     [SerializeField] Sprite enemyImage;
     float turnMeter;
-    UnitRow row;
+    [System.NonSerialized] public UnitRow row;
     public event Action<UnitRow> onRowChange;
     public event EventHandler onStartTurn;
     public event EventHandler onEndTurn;
@@ -20,6 +20,7 @@ public class EnemyUnit : MonoBehaviour, ITakeTurns, IAmUnit
     public event EventHandler onLeaveSlot;
     public event EventHandler onCollapse;
     public GameState turnState { get { return GameState.ENEMY_TURN; } set { } }
+    [System.NonSerialized] public List<EnemyUnit> squad;
 
     private void Start()
     {
@@ -35,6 +36,18 @@ public class EnemyUnit : MonoBehaviour, ITakeTurns, IAmUnit
         slot.SetOccupation(this);
         row = slot.row;
         onRowChange?.Invoke(slot.row);
+    }
+
+    public void MoveToSlot(UnitSlot slot)
+    {
+        UnitRow initialRow = row;
+        SetSlot(slot);
+        if (slot.row != initialRow) Flip(slot.row);
+    }
+
+    void Flip(UnitRow destination)
+    {
+        GlobalEvents.Instance.OnEnemyFlip(destination);
     }
 
     public bool GainTurnMeter()
@@ -67,12 +80,15 @@ public class EnemyUnit : MonoBehaviour, ITakeTurns, IAmUnit
 
     public void CollapseToSlot(UnitSlot destination)
     {
-
+        row = UnitRow.COLLAPSED;
+        transform.position = destination.transform.position;
+        destination.SetOccupation(this);
+        onRowChange?.Invoke(destination.row);
     }
 
     public void UncollapseToSlot(UnitSlot destination)
     {
-
+        SetSlot(destination);
     }
 
     void Death()
