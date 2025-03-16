@@ -66,6 +66,11 @@ public class PlayerUnit : MonoBehaviour, ITakeTurns, IAmUnit
         return false;
     }
 
+    public int GetArmor()
+    {
+        return unitStats.GetArmor(row);
+    }
+
     public void LoseHealth(int damage)
     {
         unitStats.health -= damage;

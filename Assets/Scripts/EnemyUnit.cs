@@ -63,6 +63,11 @@ public class EnemyUnit : MonoBehaviour, ITakeTurns, IAmUnit
         return false;
     }
 
+    public int GetArmor()
+    {
+        return 0;
+    }
+
     public void LoseHealth(int damage)
     {
         health -= damage;

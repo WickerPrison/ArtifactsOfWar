@@ -14,4 +14,5 @@ public interface IAmUnit
     public UnitDisplayData GetDisplayData();
     public void CollapseToSlot(UnitSlot destination);
     public void UncollapseToSlot(UnitSlot destination);
+    public int GetArmor();
 }

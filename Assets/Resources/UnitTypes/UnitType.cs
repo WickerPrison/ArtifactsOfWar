@@ -7,14 +7,38 @@ public class UnitType : ScriptableObject
     public string className;
     public Sprite classImage;
     public UnitRow prefferedRow;
+
     public float baseSpeed;
     public int baseHealth;
+    public int frontlineArmor;
+    public int backlineArmor;
+    public int collapsedArmor;
 
     public List<Ability> frontlineAbilities;
     public List<Ability> backlineAbilities;
     public List<Ability> collapsedAbilities;
+
+
+    Dictionary<UnitRow, int> _armorDict;
+    public Dictionary<UnitRow, int> armorDict
+    {
+        get
+        {
+            if(_armorDict == null)
+            {
+                _armorDict = new Dictionary<UnitRow, int>()
+                {
+                    { UnitRow.FRONTLINE, frontlineArmor },
+                    { UnitRow.BACKLINE, backlineArmor },
+                    { UnitRow.COLLAPSED, collapsedArmor }
+                };
+            }
+            return _armorDict;
+        }
+    }
+
     Dictionary<UnitRow, List<Ability>> _abilitiesDict;
-    Dictionary<UnitRow, List<Ability>> abilitiesDict 
+    public Dictionary<UnitRow, List<Ability>> abilitiesDict 
     { 
         get
         {
@@ -29,10 +53,5 @@ public class UnitType : ScriptableObject
             }
             return _abilitiesDict;
         } 
-    }
-
-    public List<Ability> GetAbilities(UnitRow row)
-    {
-        return abilitiesDict[row];
     }
 }

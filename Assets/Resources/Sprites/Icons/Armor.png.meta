@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: dce8aa190983d5041ace39287e1dc751
+guid: fe6457fd7e3826844905402f126f3d66
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 6685025930883475201
-    second: SkeletonArcher_0
+      213: -2757887451555568444
+    second: Armor_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,12 +100,12 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: SkeletonArcher_0
+      name: Armor_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 100
+        width: 88
         height: 100
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 107a5945aabf5cc50800000000000000
-      internalID: 6685025930883475201
+      spriteID: 4c4e58789f30ab9d0800000000000000
+      internalID: -2757887451555568444
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      SkeletonArcher_0: 6685025930883475201
+      Armor_0: -2757887451555568444
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

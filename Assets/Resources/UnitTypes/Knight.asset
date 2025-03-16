@@ -17,6 +17,9 @@ MonoBehaviour:
   prefferedRow: 0
   baseSpeed: 15
   baseHealth: 25
+  frontlineArmor: 5
+  backlineArmor: 3
+  collapsedArmor: 3
   frontlineAbilities:
   - {fileID: 11400000, guid: 7644a91c1523b134da379f9c1c485629, type: 2}
   - {fileID: 11400000, guid: 7becbf95f84ff8c4d8fb99253372f427, type: 2}

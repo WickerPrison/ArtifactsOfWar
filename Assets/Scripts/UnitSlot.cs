@@ -110,7 +110,7 @@ public class UnitSlot : MonoBehaviour
         forwardSlot.Unhide();
         backwardSlot.Unhide();
         display.Hide();
-        if (direction == UnitRow.NONE) return;
+        if (occupation == null) return;
         occupation.UncollapseToSlot(uncollapseDict[direction]);
     }
 
