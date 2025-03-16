@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46b27227486c8614e8ecfe28a4c55bb2, type: 3}
+  m_Name: Knight
+  m_EditorClassIdentifier: 
+  className: Knight
+  classImage: {fileID: -5711848221618334454, guid: 87a9ae2067027c04da59e8f0dab5fb6e, type: 3}
+  prefferedRow: 0
+  baseSpeed: 15
+  baseHealth: 25
+  frontlineAbilities:
+  - {fileID: 11400000, guid: 7644a91c1523b134da379f9c1c485629, type: 2}
+  - {fileID: 11400000, guid: 7becbf95f84ff8c4d8fb99253372f427, type: 2}
+  backlineAbilities:
+  - {fileID: 11400000, guid: 7644a91c1523b134da379f9c1c485629, type: 2}
+  collapsedAbilities:
+  - {fileID: 11400000, guid: 85e2f91a0ac57dc4e8f8b9cc34359576, type: 2}
+  - {fileID: 11400000, guid: c4afd7b2639966e418f2833bfc300f8a, type: 2}

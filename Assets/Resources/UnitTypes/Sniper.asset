@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46b27227486c8614e8ecfe28a4c55bb2, type: 3}
+  m_Name: Sniper
+  m_EditorClassIdentifier: 
+  className: Sniper
+  classImage: {fileID: -7040960777665541239, guid: 8d551328034ea904ea15cb3e5bd38b89, type: 3}
+  prefferedRow: 1
+  baseSpeed: 20
+  baseHealth: 15
+  frontlineAbilities:
+  - {fileID: 11400000, guid: 7644a91c1523b134da379f9c1c485629, type: 2}
+  - {fileID: 11400000, guid: 64f9b3ec694a8bf4cb91fac08f986ae8, type: 2}
+  backlineAbilities:
+  - {fileID: 11400000, guid: 7644a91c1523b134da379f9c1c485629, type: 2}
+  - {fileID: 11400000, guid: fd5aab815b250784cb3bf53af37a9202, type: 2}
+  collapsedAbilities:
+  - {fileID: 11400000, guid: 85e2f91a0ac57dc4e8f8b9cc34359576, type: 2}
+  - {fileID: 11400000, guid: c4afd7b2639966e418f2833bfc300f8a, type: 2}

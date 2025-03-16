@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e93e6898e39c6754492e36d45e8f4959, type: 3}
+  m_Name: ZombieClaw
+  m_EditorClassIdentifier: 
+  abilityName: Zombie Claw
+  targetingType: 0
+  abilityType: 0
+  damage: 1
