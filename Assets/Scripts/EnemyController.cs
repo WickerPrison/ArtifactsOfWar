@@ -15,8 +15,10 @@ public class EnemyController : MonoBehaviour
         {
             EnemyUnit enemyUnit = Instantiate(enemyPrefab).GetComponent<EnemyUnit>();
             squad.Add(enemyUnit);
+            enemyUnit.squad = squad;
             AddToPrefferedPosition(enemyUnit);
         }
+        CheckForCollapse();
     }
 
     void AddToPrefferedPosition(EnemyUnit unit)
@@ -87,6 +89,32 @@ public class EnemyController : MonoBehaviour
         }
     }
 
+    private void Global_onEnemyUncollapse(object sender, EnemyMovementEventArgs eventArgs)
+    {
+        Uncollapse(eventArgs.enemyUnit, eventArgs.direction);
+    }
+
+    void Uncollapse(EnemyUnit enemyUnit, UnitRow direction)
+    {
+        foreach (UnitSlot slot in UnitSlotGroups.Instance.enemyCollapsedline)
+        {
+            if (slot.occupation == null)
+            {
+                slot.Uncollapse(UnitRow.NONE);
+            }
+            if ((UnityEngine.Object)slot.occupation == enemyUnit)
+            {
+                slot.Uncollapse(direction);
+                ChangeRowPopulation(direction, 1);
+            }
+            else
+            {
+                slot.Uncollapse(CombatUtils.oppositeRow[direction]);
+                ChangeRowPopulation(CombatUtils.oppositeRow[direction], 1);
+            }
+        }
+    }
+
     void ChangeRowPopulation(UnitRow row, int amount)
     {
         switch (row)
@@ -121,11 +149,13 @@ public class EnemyController : MonoBehaviour
     {
         GameManager.Instance.onTurnMeter += Gm_onTurnMeter;
         GlobalEvents.Instance.onEnemyDeath += Global_onEnemyDeath;
+        GlobalEvents.Instance.onEnemyUncollapse += Global_onEnemyUncollapse;
     }
 
     private void OnDisable()
     {
         GameManager.Instance.onTurnMeter -= Gm_onTurnMeter;
         GlobalEvents.Instance.onEnemyDeath -= Global_onEnemyDeath;
+        GlobalEvents.Instance.onEnemyUncollapse -= Global_onEnemyUncollapse;
     }
 }

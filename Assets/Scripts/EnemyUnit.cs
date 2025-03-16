@@ -1,6 +1,6 @@
 using UnityEngine;
 using System;
-using System.Collections;
+using System.Collections.Generic;
 
 public class EnemyUnit : MonoBehaviour, ITakeTurns, IAmUnit
 {
@@ -20,6 +20,7 @@ public class EnemyUnit : MonoBehaviour, ITakeTurns, IAmUnit
     public event EventHandler onLeaveSlot;
     public event EventHandler onCollapse;
     public GameState turnState { get { return GameState.ENEMY_TURN; } set { } }
+    [System.NonSerialized] public List<EnemyUnit> squad;
 
     private void Start()
     {
@@ -75,7 +76,7 @@ public class EnemyUnit : MonoBehaviour, ITakeTurns, IAmUnit
 
     public void UncollapseToSlot(UnitSlot destination)
     {
-
+        SetSlot(destination);
     }
 
     void Death()

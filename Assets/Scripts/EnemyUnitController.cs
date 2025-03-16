@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class EnemyUnitController : MonoBehaviour
 {
-    EnemyUnit enemyUnit;
+    [System.NonSerialized] public EnemyUnit enemyUnit;
     [System.NonSerialized] public TargetingManager targetingManager;
 
     private void Awake()

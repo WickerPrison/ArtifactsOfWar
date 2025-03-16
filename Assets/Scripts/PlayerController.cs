@@ -20,6 +20,7 @@ public class PlayerController : MonoBehaviour
             squad.Add(playerUnit);
             AddToPrefferedPosition(playerUnit);
         }
+        CheckForCollapse();
     }
 
     void AddToPrefferedPosition(PlayerUnit unit)
