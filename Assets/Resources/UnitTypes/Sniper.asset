@@ -23,6 +23,7 @@ MonoBehaviour:
   backlineAbilities:
   - {fileID: 11400000, guid: 7644a91c1523b134da379f9c1c485629, type: 2}
   - {fileID: 11400000, guid: fd5aab815b250784cb3bf53af37a9202, type: 2}
+  - {fileID: 11400000, guid: 92b68930cdc2d164e97a2d63ee0ea352, type: 2}
   collapsedAbilities:
   - {fileID: 11400000, guid: 85e2f91a0ac57dc4e8f8b9cc34359576, type: 2}
   - {fileID: 11400000, guid: c4afd7b2639966e418f2833bfc300f8a, type: 2}

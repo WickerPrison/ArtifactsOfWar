@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bac878c77b8c79b44ac78d4b056cdebb, type: 3}
   m_Name: Longshot
   m_EditorClassIdentifier: 
-  abilityName: 
-  abilityType: 0
-  targetingType: 0
+  abilityName: Longshot
+  abilityType: 1
+  targetingType: 3
   uncollapseDirection: 0
-  damage: 0
+  damage: 10

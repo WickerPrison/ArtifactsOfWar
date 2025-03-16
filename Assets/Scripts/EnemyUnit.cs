@@ -38,6 +38,18 @@ public class EnemyUnit : MonoBehaviour, ITakeTurns, IAmUnit
         onRowChange?.Invoke(slot.row);
     }
 
+    public void MoveToSlot(UnitSlot slot)
+    {
+        UnitRow initialRow = row;
+        SetSlot(slot);
+        if (slot.row != initialRow) Flip(slot.row);
+    }
+
+    void Flip(UnitRow destination)
+    {
+        GlobalEvents.Instance.OnEnemyFlip(destination);
+    }
+
     public bool GainTurnMeter()
     {
         turnMeter += speed;

@@ -25,3 +25,4 @@ MonoBehaviour:
   collapsedAbilities:
   - {fileID: 11400000, guid: 85e2f91a0ac57dc4e8f8b9cc34359576, type: 2}
   - {fileID: 11400000, guid: c4afd7b2639966e418f2833bfc300f8a, type: 2}
+  - {fileID: 11400000, guid: 7becbf95f84ff8c4d8fb99253372f427, type: 2}

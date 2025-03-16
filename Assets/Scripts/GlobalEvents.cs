@@ -21,6 +21,7 @@ public class GlobalEvents : MonoBehaviour
     public event EventHandler<EnemyUnit> onEnemyDeath;
     public event EventHandler<PlayerUnit> onPlayerDeath;
     public event EventHandler<UnitRow> onPlayerFlip;
+    public event EventHandler<UnitRow> onEnemyFlip;
     public event EventHandler<EnemyMovementEventArgs> onEnemyUncollapse;
 
     public void OnEnemyDeath(EnemyUnit enemyUnit)
@@ -36,6 +37,11 @@ public class GlobalEvents : MonoBehaviour
     public void OnPlayerFlip(UnitRow destination)
     {
         onPlayerFlip?.Invoke(this, destination);
+    }
+
+    public void OnEnemyFlip(UnitRow destination)
+    {
+        onEnemyFlip?.Invoke(this, destination);
     }
 
     public void OnEnemyUncollapse(EnemyUnit enemyUnit, UnitRow direction)

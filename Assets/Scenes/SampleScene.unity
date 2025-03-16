@@ -730,7 +730,6 @@ MonoBehaviour:
   rawSquad:
   - {fileID: 11400000, guid: 7e26d1eb7e10058409c98a59d3be9698, type: 2}
   - {fileID: 11400000, guid: 7e26d1eb7e10058409c98a59d3be9698, type: 2}
-  - {fileID: 11400000, guid: 10018639abef9874bab1cd61617793fe, type: 2}
   unitPrefab: {fileID: 6053302401172762029, guid: c4f1550f1a1d6b54bb5a7c2fe8dc8a28, type: 3}
 --- !u!114 &721520429
 MonoBehaviour:
@@ -747,7 +746,8 @@ MonoBehaviour:
   rawSquad:
   - {fileID: 1453402757332736766, guid: 6eac3828ca0d2834faaa08bced8b86c7, type: 3}
   - {fileID: 1453402757332736766, guid: 6eac3828ca0d2834faaa08bced8b86c7, type: 3}
-  - {fileID: 2902225799356895207, guid: e758008745dcef2478a0d3c512945d91, type: 3}
+  - {fileID: 1453402757332736766, guid: 6eac3828ca0d2834faaa08bced8b86c7, type: 3}
+  - {fileID: 1453402757332736766, guid: 6eac3828ca0d2834faaa08bced8b86c7, type: 3}
 --- !u!114 &721520430
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2742,9 +2742,9 @@ RectTransform:
   - {fileID: 5356415572479402291}
   m_Father: {fileID: 815057635}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 2, y: -0.15}
   m_SizeDelta: {x: 4, y: 0.3}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &9126533182964537769

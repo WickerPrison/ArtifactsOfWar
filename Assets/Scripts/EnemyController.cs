@@ -128,6 +128,13 @@ public class EnemyController : MonoBehaviour
         }
     }
 
+    private void Global_onEnemyFlip(object sender, UnitRow destination)
+    {
+        ChangeRowPopulation(CombatUtils.oppositeRow[destination], -1);
+        ChangeRowPopulation(destination, 1);
+        CheckForCollapse();
+    }
+
     private void Global_onEnemyDeath(object sender, EnemyUnit enemyUnit)
     {
         squad.Remove(enemyUnit);
@@ -150,6 +157,7 @@ public class EnemyController : MonoBehaviour
         GameManager.Instance.onTurnMeter += Gm_onTurnMeter;
         GlobalEvents.Instance.onEnemyDeath += Global_onEnemyDeath;
         GlobalEvents.Instance.onEnemyUncollapse += Global_onEnemyUncollapse;
+        GlobalEvents.Instance.onEnemyFlip += Global_onEnemyFlip;
     }
 
     private void OnDisable()
@@ -157,5 +165,6 @@ public class EnemyController : MonoBehaviour
         GameManager.Instance.onTurnMeter -= Gm_onTurnMeter;
         GlobalEvents.Instance.onEnemyDeath -= Global_onEnemyDeath;
         GlobalEvents.Instance.onEnemyUncollapse -= Global_onEnemyUncollapse;
+        GlobalEvents.Instance.onEnemyFlip -= Global_onEnemyFlip;
     }
 }
