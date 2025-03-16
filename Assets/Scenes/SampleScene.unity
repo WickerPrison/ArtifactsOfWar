@@ -171,6 +171,10 @@ PrefabInstance:
       propertyPath: slotType
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 6390245404744250228, guid: 2bc5f2367ac2dc84a9c84e30fd76c3bf, type: 3}
+      propertyPath: collapseTo
+      value: 
+      objectReference: {fileID: 1260142563}
     - target: {fileID: 7936777727737668367, guid: 2bc5f2367ac2dc84a9c84e30fd76c3bf, type: 3}
       propertyPath: m_Name
       value: UnitSlot
@@ -743,6 +747,7 @@ MonoBehaviour:
   rawSquad:
   - {fileID: 1453402757332736766, guid: 6eac3828ca0d2834faaa08bced8b86c7, type: 3}
   - {fileID: 1453402757332736766, guid: 6eac3828ca0d2834faaa08bced8b86c7, type: 3}
+  - {fileID: 2902225799356895207, guid: e758008745dcef2478a0d3c512945d91, type: 3}
 --- !u!114 &721520430
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1202,6 +1207,10 @@ PrefabInstance:
       propertyPath: slotType
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 6390245404744250228, guid: 2bc5f2367ac2dc84a9c84e30fd76c3bf, type: 3}
+      propertyPath: collapseTo
+      value: 
+      objectReference: {fileID: 763836608}
     - target: {fileID: 7936777727737668367, guid: 2bc5f2367ac2dc84a9c84e30fd76c3bf, type: 3}
       propertyPath: m_Name
       value: UnitSlot (2)
@@ -1278,6 +1287,10 @@ PrefabInstance:
       propertyPath: slotType
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 6390245404744250228, guid: 2bc5f2367ac2dc84a9c84e30fd76c3bf, type: 3}
+      propertyPath: collapseTo
+      value: 
+      objectReference: {fileID: 1260142563}
     - target: {fileID: 7936777727737668367, guid: 2bc5f2367ac2dc84a9c84e30fd76c3bf, type: 3}
       propertyPath: m_Name
       value: UnitSlot
@@ -1339,6 +1352,10 @@ PrefabInstance:
       propertyPath: slotType
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 6390245404744250228, guid: 2bc5f2367ac2dc84a9c84e30fd76c3bf, type: 3}
+      propertyPath: collapseTo
+      value: 
+      objectReference: {fileID: 763836608}
     - target: {fileID: 7936777727737668367, guid: 2bc5f2367ac2dc84a9c84e30fd76c3bf, type: 3}
       propertyPath: m_Name
       value: UnitSlot (2)
@@ -1406,7 +1423,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1299196815
 Transform:
   m_ObjectHideFlags: 0
@@ -1566,6 +1583,10 @@ PrefabInstance:
       propertyPath: slotType
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 6390245404744250228, guid: 2bc5f2367ac2dc84a9c84e30fd76c3bf, type: 3}
+      propertyPath: collapseTo
+      value: 
+      objectReference: {fileID: 993619745}
     - target: {fileID: 7936777727737668367, guid: 2bc5f2367ac2dc84a9c84e30fd76c3bf, type: 3}
       propertyPath: m_Name
       value: UnitSlot (1)
@@ -1706,6 +1727,10 @@ PrefabInstance:
       propertyPath: slotType
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 6390245404744250228, guid: 2bc5f2367ac2dc84a9c84e30fd76c3bf, type: 3}
+      propertyPath: collapseTo
+      value: 
+      objectReference: {fileID: 993619745}
     - target: {fileID: 7936777727737668367, guid: 2bc5f2367ac2dc84a9c84e30fd76c3bf, type: 3}
       propertyPath: m_Name
       value: UnitSlot (1)
@@ -1891,6 +1916,14 @@ PrefabInstance:
       propertyPath: slotType
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 6390245404744250228, guid: 2bc5f2367ac2dc84a9c84e30fd76c3bf, type: 3}
+      propertyPath: forwardSlot
+      value: 
+      objectReference: {fileID: 530796492}
+    - target: {fileID: 6390245404744250228, guid: 2bc5f2367ac2dc84a9c84e30fd76c3bf, type: 3}
+      propertyPath: backwardSlot
+      value: 
+      objectReference: {fileID: 769649743}
     - target: {fileID: 7936777727737668367, guid: 2bc5f2367ac2dc84a9c84e30fd76c3bf, type: 3}
       propertyPath: m_Name
       value: UnitSlot (1)
@@ -1956,6 +1989,14 @@ PrefabInstance:
       propertyPath: slotType
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 6390245404744250228, guid: 2bc5f2367ac2dc84a9c84e30fd76c3bf, type: 3}
+      propertyPath: forwardSlot
+      value: 
+      objectReference: {fileID: 2065622932}
+    - target: {fileID: 6390245404744250228, guid: 2bc5f2367ac2dc84a9c84e30fd76c3bf, type: 3}
+      propertyPath: backwardSlot
+      value: 
+      objectReference: {fileID: 1435605838}
     - target: {fileID: 7936777727737668367, guid: 2bc5f2367ac2dc84a9c84e30fd76c3bf, type: 3}
       propertyPath: m_Name
       value: UnitSlot (2)
@@ -2281,6 +2322,14 @@ PrefabInstance:
       propertyPath: slotType
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 6390245404744250228, guid: 2bc5f2367ac2dc84a9c84e30fd76c3bf, type: 3}
+      propertyPath: forwardSlot
+      value: 
+      objectReference: {fileID: 931371920}
+    - target: {fileID: 6390245404744250228, guid: 2bc5f2367ac2dc84a9c84e30fd76c3bf, type: 3}
+      propertyPath: backwardSlot
+      value: 
+      objectReference: {fileID: 704540473}
     - target: {fileID: 7936777727737668367, guid: 2bc5f2367ac2dc84a9c84e30fd76c3bf, type: 3}
       propertyPath: m_Name
       value: UnitSlot

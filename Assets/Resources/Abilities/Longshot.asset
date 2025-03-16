@@ -9,10 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e93e6898e39c6754492e36d45e8f4959, type: 3}
-  m_Name: ZombieClaw
+  m_Script: {fileID: 11500000, guid: bac878c77b8c79b44ac78d4b056cdebb, type: 3}
+  m_Name: Longshot
   m_EditorClassIdentifier: 
-  abilityName: Zombie Claw
-  targetingType: 0
+  abilityName: 
   abilityType: 0
-  damage: 75
+  targetingType: 0
+  uncollapseDirection: 0
+  damage: 0

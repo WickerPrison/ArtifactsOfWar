@@ -11,7 +11,7 @@ public class EnemyUnit : MonoBehaviour, ITakeTurns, IAmUnit
     int health;
     [SerializeField] Sprite enemyImage;
     float turnMeter;
-    UnitRow row;
+    [System.NonSerialized] public UnitRow row;
     public event Action<UnitRow> onRowChange;
     public event EventHandler onStartTurn;
     public event EventHandler onEndTurn;
@@ -67,7 +67,10 @@ public class EnemyUnit : MonoBehaviour, ITakeTurns, IAmUnit
 
     public void CollapseToSlot(UnitSlot destination)
     {
-
+        row = UnitRow.COLLAPSED;
+        transform.position = destination.transform.position;
+        destination.SetOccupation(this);
+        onRowChange?.Invoke(destination.row);
     }
 
     public void UncollapseToSlot(UnitSlot destination)

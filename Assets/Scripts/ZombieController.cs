@@ -5,12 +5,6 @@ using System.Collections;
 public class ZombieController : EnemyUnitController
 {
     [SerializeField] EnemyAbility zombieClaw;
-    TargetingManager targetingManager;
-
-    private void Start()
-    {
-        targetingManager = GameManager.Instance.GetComponent<TargetingManager>();
-    }
 
     public override void StartTurn()
     {

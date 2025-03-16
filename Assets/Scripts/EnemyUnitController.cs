@@ -3,10 +3,16 @@ using UnityEngine;
 public class EnemyUnitController : MonoBehaviour
 {
     EnemyUnit enemyUnit;
+    [System.NonSerialized] public TargetingManager targetingManager;
 
     private void Awake()
     {
         enemyUnit = GetComponent<EnemyUnit>();
+    }
+
+    private void Start()
+    {
+        targetingManager = GameManager.Instance.GetComponent<TargetingManager>();
     }
 
     public virtual void StartTurn() { }
