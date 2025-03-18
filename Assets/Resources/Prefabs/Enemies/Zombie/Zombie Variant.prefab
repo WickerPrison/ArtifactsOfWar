@@ -24,6 +24,14 @@ PrefabInstance:
       propertyPath: enemyImage
       value: 
       objectReference: {fileID: 6019453725058403666, guid: 772316b09d9772746a9a073bcd535cdc, type: 3}
+    - target: {fileID: -6006966192145137159, guid: d3240307673e3f54fa7fcf7ce9221ba7, type: 3}
+      propertyPath: collapsedArmor
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: -6006966192145137159, guid: d3240307673e3f54fa7fcf7ce9221ba7, type: 3}
+      propertyPath: frontlineArmor
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 5580281360954910038, guid: d3240307673e3f54fa7fcf7ce9221ba7, type: 3}
       propertyPath: m_LocalPosition.x
       value: 7.083031

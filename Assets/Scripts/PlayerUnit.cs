@@ -73,6 +73,7 @@ public class PlayerUnit : MonoBehaviour, ITakeTurns, IAmUnit
 
     public void LoseHealth(int damage)
     {
+        damage = Math.Max(damage - GetArmor(), 0);
         unitStats.health -= damage;
         if(unitStats.health <= 0)
         {

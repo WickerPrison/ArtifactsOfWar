@@ -26,7 +26,11 @@ PrefabInstance:
       objectReference: {fileID: 6685025930883475201, guid: dce8aa190983d5041ace39287e1dc751, type: 3}
     - target: {fileID: -6006966192145137159, guid: d3240307673e3f54fa7fcf7ce9221ba7, type: 3}
       propertyPath: prefferedRow
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -6006966192145137159, guid: d3240307673e3f54fa7fcf7ce9221ba7, type: 3}
+      propertyPath: backlineArmor
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5580281360954910038, guid: d3240307673e3f54fa7fcf7ce9221ba7, type: 3}
       propertyPath: m_LocalPosition.x
