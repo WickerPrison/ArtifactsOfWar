@@ -727,11 +727,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69b283a7be0ded847b5a04e2521cb3f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rawSquad:
-  - {fileID: 11400000, guid: 7e26d1eb7e10058409c98a59d3be9698, type: 2}
-  - {fileID: 11400000, guid: 7e26d1eb7e10058409c98a59d3be9698, type: 2}
-  - {fileID: 11400000, guid: 7e26d1eb7e10058409c98a59d3be9698, type: 2}
-  - {fileID: 11400000, guid: 10018639abef9874bab1cd61617793fe, type: 2}
+  rawSquad: {fileID: 11400000, guid: 327d355f6f91899488be901abf94ecdc, type: 2}
   unitPrefab: {fileID: 6053302401172762029, guid: c4f1550f1a1d6b54bb5a7c2fe8dc8a28, type: 3}
 --- !u!114 &721520429
 MonoBehaviour:
@@ -745,10 +741,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a21ee0d769e9804184525108f4f50a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rawSquad:
-  - {fileID: 1453402757332736766, guid: 6eac3828ca0d2834faaa08bced8b86c7, type: 3}
-  - {fileID: 1453402757332736766, guid: 6eac3828ca0d2834faaa08bced8b86c7, type: 3}
-  - {fileID: 2902225799356895207, guid: e758008745dcef2478a0d3c512945d91, type: 3}
+  rawSquad: {fileID: 11400000, guid: 2e97a5353bb979d4c88168b6cb50d99b, type: 2}
 --- !u!114 &721520430
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -798,28 +791,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerFrontline:
-  - {fileID: 2182414478219702951}
   - {fileID: 636116183}
+  - {fileID: 2182414478219702951}
   - {fileID: 1679550082}
   playerBackline:
-  - {fileID: 1327999517}
   - {fileID: 1168996426}
+  - {fileID: 1327999517}
   - {fileID: 2011429679}
   playerCollapsedline:
-  - {fileID: 1836356621}
   - {fileID: 1461882098}
+  - {fileID: 1836356621}
   - {fileID: 1211856692}
   enemyFrontline:
-  - {fileID: 931371920}
   - {fileID: 530796492}
+  - {fileID: 931371920}
   - {fileID: 2065622932}
   enemyBackline:
-  - {fileID: 704540473}
   - {fileID: 769649743}
+  - {fileID: 704540473}
   - {fileID: 1435605838}
   enemyCollapsedline:
-  - {fileID: 1260142563}
   - {fileID: 993619745}
+  - {fileID: 1260142563}
   - {fileID: 763836608}
 --- !u!1 &746269563
 GameObject:

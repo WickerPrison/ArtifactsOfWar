@@ -5,7 +5,7 @@ using System;
 
 public class PlayerController : MonoBehaviour
 {
-    public List<UnitType> rawSquad = new List<UnitType>();
+    public PlayerSquad rawSquad;
     List<PlayerUnit> squad = new List<PlayerUnit>();
     [SerializeField] GameObject unitPrefab;
     int frontlinePop = 0;
@@ -13,59 +13,71 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
-        foreach(UnitType unitType in rawSquad)
+        for(int i = 0; i < 3; i++)
         {
+            if (rawSquad.frontline[i] == null) continue;
             PlayerUnit playerUnit = Instantiate(unitPrefab).GetComponent<PlayerUnit>();
-            playerUnit.unitStats = new PlayerUnitStats(unitType);
+            playerUnit.unitStats = new PlayerUnitStats(rawSquad.frontline[i]);
             squad.Add(playerUnit);
-            AddToPrefferedPosition(playerUnit);
+            playerUnit.SetSlot(UnitSlotGroups.Instance.playerFrontline[i]);
+            ChangeRowPopulation(UnitRow.FRONTLINE, 1);
+        }
+
+        for (int i = 0; i < 3; i++)
+        {
+            if (rawSquad.backline[i] == null) continue;
+            PlayerUnit playerUnit = Instantiate(unitPrefab).GetComponent<PlayerUnit>();
+            playerUnit.unitStats = new PlayerUnitStats(rawSquad.backline[i]);
+            squad.Add(playerUnit);
+            playerUnit.SetSlot(UnitSlotGroups.Instance.playerBackline[i]);
+            ChangeRowPopulation(UnitRow.BACKLINE, 1);
         }
         CheckForCollapse();
     }
 
-    void AddToPrefferedPosition(PlayerUnit unit)
-    {
-        switch (unit.unitStats.unitType.prefferedRow)
-        {
-            case UnitRow.FRONTLINE:
-                AddToFrontRow(unit, () => AddToBackRow(unit, () => Debug.LogError("both rows full")));
-                break;
-            case UnitRow.BACKLINE:
-                AddToBackRow(unit, () => AddToFrontRow(unit, () => Debug.LogError("both rows full")));
-                break;
-        }
-    }
+    //void AddToPrefferedPosition(PlayerUnit unit)
+    //{
+    //    switch (unit.unitStats.unitType.prefferedRow)
+    //    {
+    //        case UnitRow.FRONTLINE:
+    //            AddToFrontRow(unit, () => AddToBackRow(unit, () => Debug.LogError("both rows full")));
+    //            break;
+    //        case UnitRow.BACKLINE:
+    //            AddToBackRow(unit, () => AddToFrontRow(unit, () => Debug.LogError("both rows full")));
+    //            break;
+    //    }
+    //}
 
-    void AddToFrontRow(PlayerUnit unit, Action callback)
-    {
-        AddToRow(unit, callback, UnitSlotGroups.Instance.playerFrontline);
-    }
+    //void AddToFrontRow(PlayerUnit unit, Action callback)
+    //{
+    //    AddToRow(unit, callback, UnitSlotGroups.Instance.playerFrontline);
+    //}
 
-    void AddToBackRow(PlayerUnit unit, Action callback)
-    {
-        AddToRow(unit, callback, UnitSlotGroups.Instance.playerBackline);
-    }
+    //void AddToBackRow(PlayerUnit unit, Action callback)
+    //{
+    //    AddToRow(unit, callback, UnitSlotGroups.Instance.playerBackline);
+    //}
 
-    void AddToRow(PlayerUnit unit, Action callback, UnitSlot[] line)
-    {
-        for(int i = 0; i < 3; i++)
-        {
-            if(line[i].occupation == null)
-            {
-                unit.SetSlot(line[i]);
-                if(line == UnitSlotGroups.Instance.playerFrontline)
-                {
-                    frontlinePop += 1;
-                }
-                else
-                {
-                    backlinePop += 1;
-                }
-                return;
-            }
-        }
-        callback();
-    }
+    //void AddToRow(PlayerUnit unit, Action callback, UnitSlot[] line)
+    //{
+    //    for(int i = 0; i < 3; i++)
+    //    {
+    //        if(line[i].occupation == null)
+    //        {
+    //            unit.SetSlot(line[i]);
+    //            if(line == UnitSlotGroups.Instance.playerFrontline)
+    //            {
+    //                frontlinePop += 1;
+    //            }
+    //            else
+    //            {
+    //                backlinePop += 1;
+    //            }
+    //            return;
+    //        }
+    //    }
+    //    callback();
+    //}
 
     private void Gm_onTurnMeter(object sender, EventArgs e)
     {
