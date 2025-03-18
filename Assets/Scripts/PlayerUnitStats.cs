@@ -21,6 +21,11 @@ public class PlayerUnitStats
 
     public List<Ability> GetAbilities(UnitRow row)
     {
-        return unitType.GetAbilities(row);
+        return unitType.abilitiesDict[row];
+    }
+
+    public int GetArmor(UnitRow row)
+    {
+        return unitType.armorDict[row];
     }
 }

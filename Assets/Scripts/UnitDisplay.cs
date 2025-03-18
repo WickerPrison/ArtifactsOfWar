@@ -9,6 +9,7 @@ public class UnitDisplay : MonoBehaviour
     [SerializeField] SpriteRenderer image;
     [SerializeField] SpriteRenderer turnMeterFill;
     [SerializeField] float maxTurnMeter;
+    [SerializeField] TextMeshProUGUI armorText;
     IAmUnit unit;
     Color defaultColor;
 
@@ -72,6 +73,7 @@ public class UnitDisplay : MonoBehaviour
         defaultColor = GameManager.Instance.rowColorDict[row];
         outline.color = defaultColor;
         glow.color = defaultColor;
+        armorText.text = unit.GetArmor().ToString();
     }
 
     private void OnEnable()
