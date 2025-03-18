@@ -4,66 +4,78 @@ using System.Collections.Generic;
 
 public class EnemyController : MonoBehaviour
 {
-    public List<GameObject> rawSquad = new List<GameObject>();
+    public EnemySquad rawSquad;
     List<EnemyUnit> squad = new List<EnemyUnit>();
     int frontlinePop = 0;
     int backlinePop = 0;
 
     private void Start()
     {
-        foreach (GameObject enemyPrefab in rawSquad)
+        for(int i = 0; i < 3; i++)
         {
-            EnemyUnit enemyUnit = Instantiate(enemyPrefab).GetComponent<EnemyUnit>();
+            if (rawSquad.frontline[i] == null) continue;
+            EnemyUnit enemyUnit = Instantiate(rawSquad.frontline[i]).GetComponent<EnemyUnit>();
             squad.Add(enemyUnit);
             enemyUnit.squad = squad;
-            AddToPrefferedPosition(enemyUnit);
+            enemyUnit.SetSlot(UnitSlotGroups.Instance.enemyFrontline[i]);
+            ChangeRowPopulation(UnitRow.FRONTLINE, 1);
+        }
+
+        for (int i = 0; i < 3; i++)
+        {
+            if (rawSquad.backline[i] == null) continue;
+            EnemyUnit enemyUnit = Instantiate(rawSquad.backline[i]).GetComponent<EnemyUnit>();
+            squad.Add(enemyUnit);
+            enemyUnit.squad = squad;
+            enemyUnit.SetSlot(UnitSlotGroups.Instance.enemyBackline[i]);
+            ChangeRowPopulation(UnitRow.BACKLINE, 1);
         }
         CheckForCollapse();
     }
 
-    void AddToPrefferedPosition(EnemyUnit unit)
-    {
-        switch (unit.prefferedRow)
-        {
-            case UnitRow.FRONTLINE:
-                AddToFrontRow(unit, () => AddToBackRow(unit, () => Debug.LogError("both rows full")));
-                break;
-            case (UnitRow.BACKLINE):
-                AddToBackRow(unit, () => AddToFrontRow(unit, () => Debug.LogError("both rows full")));
-                break;
-        }
-    }
+    //void AddToPrefferedPosition(EnemyUnit unit)
+    //{
+    //    switch (unit.prefferedRow)
+    //    {
+    //        case UnitRow.FRONTLINE:
+    //            AddToFrontRow(unit, () => AddToBackRow(unit, () => Debug.LogError("both rows full")));
+    //            break;
+    //        case (UnitRow.BACKLINE):
+    //            AddToBackRow(unit, () => AddToFrontRow(unit, () => Debug.LogError("both rows full")));
+    //            break;
+    //    }
+    //}
 
-    void AddToFrontRow(EnemyUnit unit, Action callback)
-    {
-        AddToRow(unit, callback, UnitSlotGroups.Instance.enemyFrontline);
-    }
+    //void AddToFrontRow(EnemyUnit unit, Action callback)
+    //{
+    //    AddToRow(unit, callback, UnitSlotGroups.Instance.enemyFrontline);
+    //}
 
-    void AddToBackRow(EnemyUnit unit, Action callback)
-    {
-        AddToRow(unit, callback, UnitSlotGroups.Instance.enemyBackline);
-    }
+    //void AddToBackRow(EnemyUnit unit, Action callback)
+    //{
+    //    AddToRow(unit, callback, UnitSlotGroups.Instance.enemyBackline);
+    //}
 
-    void AddToRow(EnemyUnit unit, Action callback, UnitSlot[] line)
-    {
-        for (int i = 0; i < 3; i++)
-        {
-            if (line[i].occupation == null)
-            {
-                unit.SetSlot(line[i]);
-                if(line == UnitSlotGroups.Instance.enemyFrontline)
-                {
-                    frontlinePop += 1;
-                }
-                else
-                {
-                    backlinePop += 1;
-                }
-                return;
-            }
-        }
-        callback();
-    }
+    //void AddToRow(EnemyUnit unit, Action callback, UnitSlot[] line)
+    //{
+    //    for (int i = 0; i < 3; i++)
+    //    {
+    //        if (line[i].occupation == null)
+    //        {
+    //            unit.SetSlot(line[i]);
+    //            if(line == UnitSlotGroups.Instance.enemyFrontline)
+    //            {
+    //                frontlinePop += 1;
+    //            }
+    //            else
+    //            {
+    //                backlinePop += 1;
+    //            }
+    //            return;
+    //        }
+    //    }
+    //    callback();
+    //}
 
     private void Gm_onTurnMeter(object sender, EventArgs e)
     {

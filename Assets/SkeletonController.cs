@@ -3,6 +3,8 @@ using System.Collections;
 
 public class SkeletonController : EnemyUnitController
 {
+    [SerializeField] EnemyAbility bowShot;
+
     public override void StartTurn()
     {
         base.StartTurn();
@@ -12,10 +14,32 @@ public class SkeletonController : EnemyUnitController
     IEnumerator DummyTurn()
     {
         yield return new WaitForSeconds(0.5f);
-        if(enemyUnit.row == UnitRow.COLLAPSED && enemyUnit.squad.Count > 1)
+
+        switch (enemyUnit.row)
         {
-            GlobalEvents.Instance.OnEnemyUncollapse(enemyUnit, UnitRow.BACKLINE);
+            case UnitRow.FRONTLINE:
+                MoveBackward();
+                break;
+            case UnitRow.COLLAPSED:
+                if(enemyUnit.squad.Count > 1)
+                {
+                    GlobalEvents.Instance.OnEnemyUncollapse(enemyUnit, UnitRow.BACKLINE);
+                }
+                break;
+            case UnitRow.BACKLINE:
+                BowShot();
+                break;
         }
         GameManager.Instance.EndTurn();
+    }
+
+    void BowShot()
+    {
+        UnitSlot targetSlot = targetingManager.EnemyTargeting(bowShot.targetingType);
+        if (targetSlot != null)
+        {
+            IAmUnit playerUnit = targetSlot.occupation;
+            playerUnit.LoseHealth(bowShot.damage);
+        }
     }
 }
