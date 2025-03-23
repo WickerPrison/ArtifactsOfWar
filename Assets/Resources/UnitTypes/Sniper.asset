@@ -15,6 +15,7 @@ MonoBehaviour:
   className: Sniper
   classImage: {fileID: -7040960777665541239, guid: 8d551328034ea904ea15cb3e5bd38b89, type: 3}
   prefferedRow: 1
+  cost: 100
   baseSpeed: 20
   baseHealth: 15
   frontlineArmor: 0

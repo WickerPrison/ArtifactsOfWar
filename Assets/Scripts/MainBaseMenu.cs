@@ -4,6 +4,17 @@ using UnityEngine.UI;
 public class MainBaseMenu : MonoBehaviour
 {
     [SerializeField] Image menu;
+    [SerializeField] Transform availableToRecruit;
+    [SerializeField] GameObject unitOptionPrefab;
+
+    private void Start()
+    {
+        menu.gameObject.SetActive(false);
+        for(int i = 0; i < 5; i++)
+        {
+            Instantiate(unitOptionPrefab).transform.SetParent(availableToRecruit);
+        }
+    }
 
     private void Strategy_onOpenMainBaseMenu(object sender, System.EventArgs e)
     {

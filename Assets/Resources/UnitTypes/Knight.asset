@@ -15,6 +15,7 @@ MonoBehaviour:
   className: Knight
   classImage: {fileID: -5711848221618334454, guid: 87a9ae2067027c04da59e8f0dab5fb6e, type: 3}
   prefferedRow: 0
+  cost: 150
   baseSpeed: 15
   baseHealth: 25
   frontlineArmor: 5

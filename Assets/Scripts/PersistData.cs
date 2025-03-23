@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public static class PersistData
 {
@@ -11,4 +12,6 @@ public static class PersistData
             _money = value;
         } 
     }
+
+    public static List<PlayerUnitStats> army = new List<PlayerUnitStats>();
 }

@@ -9,6 +9,7 @@ public class PlayerUnitStats
     public float turnMeter;
     public int maxHealth;
     public int health;
+    public string unitName;
 
     public PlayerUnitStats(UnitType type)
     {
