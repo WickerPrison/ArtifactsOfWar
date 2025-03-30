@@ -18,12 +18,18 @@ public class StrategyEvents : MonoBehaviour
         }
     }
 
-    public event EventHandler onOpenMainBaseMenu;
+    public event EventHandler<Stronghold> onOpenStrongholdMenu;
+    public event EventHandler<Stronghold> onUpdateStrongholdUnits;
     public event EventHandler<int> onMoneyChange;
 
-    public void OpenMainBaseMenu()
+    public void OpenStrongholdMenu(Stronghold stronghold)
     {
-        onOpenMainBaseMenu?.Invoke(this, EventArgs.Empty);
+        onOpenStrongholdMenu?.Invoke(this, stronghold);
+    }
+
+    public void UpdateStrongholdUnits(Stronghold stronghold)
+    {
+        onUpdateStrongholdUnits?.Invoke(this, stronghold);
     }
 
     public void SetMoney(int amount)

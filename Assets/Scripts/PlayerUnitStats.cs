@@ -10,6 +10,7 @@ public class PlayerUnitStats
     public int maxHealth;
     public int health;
     public string unitName;
+    public string id;
 
     public PlayerUnitStats(UnitType type)
     {
@@ -18,6 +19,7 @@ public class PlayerUnitStats
         turnMeter = Random.Range(0, 100);
         maxHealth = type.baseHealth;
         health = maxHealth;
+        id = System.Guid.NewGuid().ToString();
     }
 
     public List<Ability> GetAbilities(UnitRow row)
