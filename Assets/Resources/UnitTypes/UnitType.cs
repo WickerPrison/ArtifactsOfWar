@@ -7,6 +7,7 @@ public class UnitType : ScriptableObject
     public string className;
     public Sprite classImage;
     public UnitRow prefferedRow;
+    public int cost;
 
     public float baseSpeed;
     public int baseHealth;
