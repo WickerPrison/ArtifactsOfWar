@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-public class Stronghold : MonoBehaviour
+public class Stronghold : MonoBehaviour, IAmOrigin, IAmDestination
 {
     [System.NonSerialized] public List<PlayerUnitStats> availableRecruits = new List<PlayerUnitStats>();
     List<PlayerUnitStats> barracks = new List<PlayerUnitStats>();
@@ -19,13 +19,27 @@ public class Stronghold : MonoBehaviour
         barracks.Add(newUnit);
     }
 
+    public void RemoveFromBarracks(PlayerUnitStats unit)
+    {
+        barracks.Remove(unit);
+        StrategyEvents.Instance.UpdateStrongholdUnits(this);
+    }
+
     public List<PlayerUnitStats> GetBarracksCount()
     {
         return barracks;
     }
 
+    public void PrepareDeparture()
+    {
+
+    }
+
     private void OnMouseDown()
     {
-        StrategyEvents.Instance.OpenStrongholdMenu(this);
+        if(StrategyManager.Instance.strategyState == StrategyState.UNSELECTED)
+        {
+            StrategyEvents.Instance.SelectStronghold(this);
+        }
     }
 }

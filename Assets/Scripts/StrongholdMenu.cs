@@ -5,7 +5,7 @@ public class StrongholdMenu : MonoBehaviour
 {
     [SerializeField] Image menu;
     [SerializeField] Transform availableToRecruit;
-    [SerializeField] Transform barracks;
+    [SerializeField] BarracksDisplay barracks;
     [SerializeField] GameObject recruitUnitPrefab;
     [SerializeField] GameObject displayUnitPrefab;
 
@@ -20,7 +20,7 @@ public class StrongholdMenu : MonoBehaviour
         UpdateUnitDisplays(stronghold);
     }
 
-    void UpdateUnitDisplays(Stronghold stronghold)
+    void UpdateUnitDisplays(Stronghold stronghold, UnitCardButton buttonType = UnitCardButton.NONE)
     {
         ClearUnitDisplays();
         foreach (PlayerUnitStats unit in stronghold.availableRecruits)
@@ -31,13 +31,7 @@ public class StrongholdMenu : MonoBehaviour
             unitCard.stronghold = stronghold;
         }
 
-        foreach(PlayerUnitStats unit in stronghold.GetBarracksCount())
-        {
-            UnitMenuCard unitCard = Instantiate(displayUnitPrefab).GetComponent<UnitMenuCard>();
-            unitCard.transform.SetParent(barracks);
-            unitCard.unitStats = unit;
-            unitCard.stronghold = stronghold;
-        }
+        barracks.UpdateDisplay(stronghold);
     }
 
     void ClearUnitDisplays()
@@ -47,10 +41,7 @@ public class StrongholdMenu : MonoBehaviour
             Destroy(availableToRecruit.GetChild(i).gameObject);
         }
 
-        for (int i = 0; i < barracks.childCount; i++)
-        {
-            Destroy(barracks.GetChild(i).gameObject);
-        }
+        barracks.ClearUnits();
     }
 
     public void Barracks()
@@ -69,18 +60,27 @@ public class StrongholdMenu : MonoBehaviour
     {
         ClearUnitDisplays();
         menu.gameObject.SetActive(false);
+        StrategyEvents.Instance.DeselectStronghold();
+    }
+
+    private void Strategy_onCreatePath(object sender, StrategyPath strategyPath)
+    {
+        Barracks();
+        barracks.SetButtonMode(UnitCardButton.ADD_TO_SQUAD);
     }
 
     private void OnEnable()
     {
-        StrategyEvents.Instance.onOpenStrongholdMenu += Strategy_onOpenStrongholdMenu;
+        StrategyEvents.Instance.onSelectStronghold += Strategy_onOpenStrongholdMenu;
         StrategyEvents.Instance.onUpdateStrongholdUnits += Strategy_onUpdateStrongholdUnits;
+        StrategyEvents.Instance.onCreatePath += Strategy_onCreatePath;
     }
 
     private void OnDisable()
     {
-        StrategyEvents.Instance.onOpenStrongholdMenu -= Strategy_onOpenStrongholdMenu;
+        StrategyEvents.Instance.onSelectStronghold -= Strategy_onOpenStrongholdMenu;
         StrategyEvents.Instance.onUpdateStrongholdUnits -= Strategy_onUpdateStrongholdUnits;
+        StrategyEvents.Instance.onCreatePath -= Strategy_onCreatePath;
     }
 
     private void Strategy_onUpdateStrongholdUnits(object sender, Stronghold stronghold)

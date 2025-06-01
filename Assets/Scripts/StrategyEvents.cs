@@ -18,13 +18,21 @@ public class StrategyEvents : MonoBehaviour
         }
     }
 
-    public event EventHandler<Stronghold> onOpenStrongholdMenu;
+    public event EventHandler<Stronghold> onSelectStronghold;
+    public event EventHandler onDeselectStronghold;
     public event EventHandler<Stronghold> onUpdateStrongholdUnits;
     public event EventHandler<int> onMoneyChange;
+    public event EventHandler<StrategyPath> onCreatePath;
+    public event EventHandler<PlayerUnitStats> onAddUnitToSquad;
 
-    public void OpenStrongholdMenu(Stronghold stronghold)
+    public void SelectStronghold(Stronghold stronghold)
     {
-        onOpenStrongholdMenu?.Invoke(this, stronghold);
+        onSelectStronghold?.Invoke(this, stronghold);
+    }
+
+    public void DeselectStronghold()
+    {
+        onDeselectStronghold?.Invoke(this, EventArgs.Empty);
     }
 
     public void UpdateStrongholdUnits(Stronghold stronghold)
@@ -35,5 +43,15 @@ public class StrategyEvents : MonoBehaviour
     public void SetMoney(int amount)
     {
         onMoneyChange?.Invoke(this, amount);
+    }
+
+    public void CreatePath(StrategyPath strategyPath)
+    {
+        onCreatePath?.Invoke(this, strategyPath);
+    }
+
+    public void AddUnitToSquad(PlayerUnitStats unit)
+    {
+        onAddUnitToSquad?.Invoke(this, unit);
     }
 }

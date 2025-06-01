@@ -14,4 +14,5 @@ public static class PersistData
     }
 
     public static List<PlayerUnitStats> army = new List<PlayerUnitStats>();
+    public static List<PlayerUnitStats> newSquad = new List<PlayerUnitStats>();
 }
