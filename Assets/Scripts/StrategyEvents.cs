@@ -24,6 +24,7 @@ public class StrategyEvents : MonoBehaviour
     public event EventHandler<int> onMoneyChange;
     public event EventHandler<StrategyPath> onCreatePath;
     public event EventHandler<PlayerUnitStats> onAddUnitToSquad;
+    public event EventHandler onNextDay;
 
     public void SelectStronghold(Stronghold stronghold)
     {
@@ -53,5 +54,10 @@ public class StrategyEvents : MonoBehaviour
     public void AddUnitToSquad(PlayerUnitStats unit)
     {
         onAddUnitToSquad?.Invoke(this, unit);
+    }
+
+    public void NextDay()
+    {
+        onNextDay?.Invoke(this, EventArgs.Empty);
     }
 }

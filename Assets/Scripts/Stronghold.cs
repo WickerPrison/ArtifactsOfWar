@@ -35,6 +35,11 @@ public class Stronghold : MonoBehaviour, IAmOrigin, IAmDestination
 
     }
 
+    public void SquadArrived(List<PlayerUnitStats> squad)
+    {
+
+    }
+
     private void OnMouseDown()
     {
         if(StrategyManager.Instance.strategyState == StrategyState.UNSELECTED)

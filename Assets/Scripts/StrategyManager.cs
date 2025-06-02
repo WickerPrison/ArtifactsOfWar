@@ -14,6 +14,7 @@ public class StrategyManager : MonoBehaviour
     [System.NonSerialized] public StrategyState strategyState;
     [SerializeField] GameObject pathPrefab;
     Stronghold stronghold;
+    [System.NonSerialized] public int mustInteracts;
 
     private void Awake()
     {
@@ -31,6 +32,12 @@ public class StrategyManager : MonoBehaviour
     {
         strategyState = StrategyState.UNSELECTED;
         PersistData.money = 500;
+    }
+
+    public void NextDay()
+    {
+        if (mustInteracts > 0) return; 
+        StrategyEvents.Instance.NextDay();
     }
 
     public void CreatePath(IAmDestination destination)

@@ -4,7 +4,6 @@ using System.Collections.Generic;
 
 public class EnemyController : MonoBehaviour
 {
-    public EnemySquad rawSquad;
     List<EnemyUnit> squad = new List<EnemyUnit>();
     int frontlinePop = 0;
     int backlinePop = 0;
@@ -13,8 +12,8 @@ public class EnemyController : MonoBehaviour
     {
         for(int i = 0; i < 3; i++)
         {
-            if (rawSquad.frontline[i] == null) continue;
-            EnemyUnit enemyUnit = Instantiate(rawSquad.frontline[i]).GetComponent<EnemyUnit>();
+            if (PersistData.enemySquad.frontline[i] == null) continue;
+            EnemyUnit enemyUnit = Instantiate(PersistData.enemySquad.frontline[i]).GetComponent<EnemyUnit>();
             squad.Add(enemyUnit);
             enemyUnit.squad = squad;
             enemyUnit.SetSlot(UnitSlotGroups.Instance.enemyFrontline[i]);
@@ -23,8 +22,8 @@ public class EnemyController : MonoBehaviour
 
         for (int i = 0; i < 3; i++)
         {
-            if (rawSquad.backline[i] == null) continue;
-            EnemyUnit enemyUnit = Instantiate(rawSquad.backline[i]).GetComponent<EnemyUnit>();
+            if (PersistData.enemySquad.backline[i] == null) continue;
+            EnemyUnit enemyUnit = Instantiate(PersistData.enemySquad.backline[i]).GetComponent<EnemyUnit>();
             squad.Add(enemyUnit);
             enemyUnit.squad = squad;
             enemyUnit.SetSlot(UnitSlotGroups.Instance.enemyBackline[i]);

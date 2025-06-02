@@ -9,4 +9,27 @@ public class TravelSquad : MonoBehaviour
     [System.NonSerialized] public int totalDays;
     int passedDays;
 
+    private void Strategy_onNextDay(object sender, System.EventArgs e)
+    {
+        passedDays++;
+        transform.position = Vector3.Lerp(
+            origin.transform.position,
+            destination.transform.position,
+            (float)passedDays / totalDays
+         );
+        if(passedDays == totalDays)
+        {
+            destination.SquadArrived(squad);
+        }
+    }
+
+    private void OnEnable()
+    {
+        StrategyEvents.Instance.onNextDay += Strategy_onNextDay;
+    }
+
+    private void OnDisable()
+    {
+        StrategyEvents.Instance.onNextDay -= Strategy_onNextDay;
+    }
 }
