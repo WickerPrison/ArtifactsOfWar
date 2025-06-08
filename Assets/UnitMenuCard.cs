@@ -3,11 +3,6 @@ using TMPro;
 using UnityEngine.UI;
 using System;
 
-public enum UnitCardButton
-{
-    NONE, ADD_TO_SQUAD
-}
-
 public class UnitMenuCard : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI unitName;
@@ -16,15 +11,14 @@ public class UnitMenuCard : MonoBehaviour
     [SerializeField] TextMeshProUGUI speed;
     [SerializeField] TextMeshProUGUI defense;
     [SerializeField] Image unitImage;
-    [SerializeField] Button genericButton;
-    [SerializeField] TextMeshProUGUI genericButtonText;
+    public TextMeshProUGUI cost;
     [System.NonSerialized] public PlayerUnitStats unitStats;
     [System.NonSerialized] public Stronghold stronghold;
     string backlineColor;
     string frontlineColor;
     string collapsedColor;
     public event EventHandler onUpdateUI;
-    UnitCardButton buttonMode = UnitCardButton.NONE;
+    DragNDrop dragNDrop;
     
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -34,6 +28,8 @@ public class UnitMenuCard : MonoBehaviour
         frontlineColor = "#" + ColorUtility.ToHtmlStringRGB(StrategyManager.Instance.colorScheme.frontline);
         collapsedColor = "#" + ColorUtility.ToHtmlStringRGB(StrategyManager.Instance.colorScheme.collapsed);
         UpdateUI();
+        dragNDrop = GetComponent<DragNDrop>();
+        dragNDrop.dropAction = DragNDropAction;
     }
 
     void UpdateUI()
@@ -48,6 +44,7 @@ public class UnitMenuCard : MonoBehaviour
             $"<color={collapsedColor}>{unitStats.unitType.collapsedArmor}</color> " +
             $"<color={frontlineColor}>{unitStats.unitType.frontlineArmor}</color>";
         unitImage.sprite = unitStats.unitType.classImage;
+        cost.text = $"Cost: {unitStats.unitType.cost}";
         onUpdateUI?.Invoke(this, EventArgs.Empty);
     }
 
@@ -57,34 +54,17 @@ public class UnitMenuCard : MonoBehaviour
         UpdateUI();
     }
 
-    public void GenericButton()
-    {
-        switch (buttonMode)
-        {
-            case UnitCardButton.ADD_TO_SQUAD:
-                AddToSquad();
-                break;
-        }
-    }
-
-    public void SetButtonMode(UnitCardButton newMode)
-    {
-        buttonMode = newMode;
-        switch (newMode)
-        {
-            case UnitCardButton.NONE:
-                genericButton.gameObject.SetActive(false);
-                break;
-            case UnitCardButton.ADD_TO_SQUAD:
-                genericButton.gameObject.SetActive(true);
-                
-                break;
-        }
-    }
-
     void AddToSquad()
     {
         stronghold.RemoveFromBarracks(unitStats);
         StrategyEvents.Instance.AddUnitToSquad(unitStats);
+    }
+
+    bool DragNDropAction()
+    {
+        DragNDropData data = new DragNDropData();
+        data.unitStats = unitStats;
+        data.unitCard = this;
+        return StrategyManager.Instance.dropSpot.DropFunc(data);
     }
 }

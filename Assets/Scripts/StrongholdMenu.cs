@@ -1,13 +1,14 @@
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 public class StrongholdMenu : MonoBehaviour
 {
     [SerializeField] Image menu;
     [SerializeField] Transform availableToRecruit;
-    [SerializeField] BarracksDisplay barracks;
-    [SerializeField] GameObject recruitUnitPrefab;
-    [SerializeField] GameObject displayUnitPrefab;
+    [SerializeField] Transform barracks;
+    [SerializeField] GameObject unitOptionPrefab;
+    [SerializeField] DropSpot buyUnit;
 
     private void Start()
     {
@@ -20,18 +21,12 @@ public class StrongholdMenu : MonoBehaviour
         UpdateUnitDisplays(stronghold);
     }
 
-    void UpdateUnitDisplays(Stronghold stronghold, UnitCardButton buttonType = UnitCardButton.NONE)
+    void UpdateUnitDisplays(Stronghold stronghold)
     {
         ClearUnitDisplays();
-        foreach (PlayerUnitStats unit in stronghold.availableRecruits)
-        {
-            UnitMenuCard unitCard = Instantiate(recruitUnitPrefab).GetComponent<UnitMenuCard>();
-            unitCard.transform.SetParent(availableToRecruit);
-            unitCard.unitStats = unit;
-            unitCard.stronghold = stronghold;
-        }
 
-        barracks.UpdateDisplay(stronghold);
+        UpdateUnitDisplay(stronghold.availableRecruits, stronghold, availableToRecruit, true);
+        UpdateUnitDisplay(stronghold.GetBarracksCount(), stronghold, barracks);
     }
 
     void ClearUnitDisplays()
@@ -41,19 +36,36 @@ public class StrongholdMenu : MonoBehaviour
             Destroy(availableToRecruit.GetChild(i).gameObject);
         }
 
-        barracks.ClearUnits();
+        for(int i = 0; i < barracks.transform.childCount; i++)
+        {
+            Destroy(barracks.transform.GetChild(i).gameObject);
+        }
+    }
+
+    void UpdateUnitDisplay(List<PlayerUnitStats> units, Stronghold stronghold, Transform unitHolder, bool showCost = false)
+    {
+        foreach(PlayerUnitStats unit in units)
+        {
+            UnitMenuCard unitCard = Instantiate(unitOptionPrefab).GetComponent<UnitMenuCard>();
+            unitCard.transform.SetParent(unitHolder);
+            unitCard.unitStats = unit;
+            unitCard.stronghold = stronghold;
+            unitCard.cost.gameObject.SetActive(showCost);
+        }
     }
 
     public void Barracks()
     {
         availableToRecruit.gameObject.SetActive(false);
         barracks.gameObject.SetActive(true);
+        buyUnit.gameObject.SetActive(false);
     }
 
     public void NewRecruits()
     {
         availableToRecruit.gameObject.SetActive(true);
         barracks.gameObject.SetActive(false);
+        buyUnit.gameObject.SetActive(true);
     }
 
     public void CloseMenu()
@@ -66,7 +78,6 @@ public class StrongholdMenu : MonoBehaviour
     private void Strategy_onCreatePath(object sender, StrategyPath strategyPath)
     {
         Barracks();
-        barracks.SetButtonMode(UnitCardButton.ADD_TO_SQUAD);
     }
 
     private void OnEnable()

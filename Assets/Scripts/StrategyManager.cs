@@ -15,6 +15,7 @@ public class StrategyManager : MonoBehaviour
     [SerializeField] GameObject pathPrefab;
     Stronghold stronghold;
     [System.NonSerialized] public int mustInteracts;
+    [System.NonSerialized] public DropSpot dropSpot;
 
     private void Awake()
     {
