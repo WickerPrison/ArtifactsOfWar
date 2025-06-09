@@ -51,11 +51,6 @@ public class StrategyEvents : MonoBehaviour
         onCreatePath?.Invoke(this, strategyPath);
     }
 
-    public void AddUnitToSquad(PlayerUnitStats unit)
-    {
-        onAddUnitToSquad?.Invoke(this, unit);
-    }
-
     public void NextDay()
     {
         onNextDay?.Invoke(this, EventArgs.Empty);

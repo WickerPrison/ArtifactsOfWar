@@ -8,7 +8,7 @@ public class StrongholdMenu : MonoBehaviour
     [SerializeField] Transform availableToRecruit;
     [SerializeField] Transform barracks;
     [SerializeField] GameObject unitOptionPrefab;
-    [SerializeField] DropSpot buyUnit;
+    [SerializeField] BuyUnit buyUnit;
 
     private void Start()
     {
@@ -19,14 +19,36 @@ public class StrongholdMenu : MonoBehaviour
     {
         menu.gameObject.SetActive(true);
         UpdateUnitDisplays(stronghold);
+        NewRecruits();
     }
 
     void UpdateUnitDisplays(Stronghold stronghold)
     {
         ClearUnitDisplays();
 
-        UpdateUnitDisplay(stronghold.availableRecruits, stronghold, availableToRecruit, true);
-        UpdateUnitDisplay(stronghold.GetBarracksCount(), stronghold, barracks);
+        foreach(PlayerUnitStats unit in stronghold.availableRecruits)
+        {
+            UnitMenuCard unitCard = Instantiate(unitOptionPrefab).GetComponent<UnitMenuCard>();
+            unitCard.transform.SetParent(availableToRecruit);
+            unitCard.unitStats = unit;
+            unitCard.stronghold = stronghold;
+            unitCard.cost.gameObject.SetActive(true);
+            unitCard.EnableDragNDrop(true);
+        }
+
+        foreach(PlayerUnitStats unit in stronghold.GetBarracksCount())
+        {
+            UnitMenuCard unitCard = Instantiate(unitOptionPrefab).GetComponent<UnitMenuCard>();
+            unitCard.transform.SetParent(barracks);
+            unitCard.unitStats = unit;
+            unitCard.stronghold = stronghold;
+            unitCard.cost.gameObject.SetActive(false);
+            unitCard.EnableDragNDrop(true);
+            unitCard.leaveFunc = () =>
+            {
+                stronghold.RemoveFromBarracks(unit);
+            };
+        }
     }
 
     void ClearUnitDisplays()
@@ -39,18 +61,6 @@ public class StrongholdMenu : MonoBehaviour
         for(int i = 0; i < barracks.transform.childCount; i++)
         {
             Destroy(barracks.transform.GetChild(i).gameObject);
-        }
-    }
-
-    void UpdateUnitDisplay(List<PlayerUnitStats> units, Stronghold stronghold, Transform unitHolder, bool showCost = false)
-    {
-        foreach(PlayerUnitStats unit in units)
-        {
-            UnitMenuCard unitCard = Instantiate(unitOptionPrefab).GetComponent<UnitMenuCard>();
-            unitCard.transform.SetParent(unitHolder);
-            unitCard.unitStats = unit;
-            unitCard.stronghold = stronghold;
-            unitCard.cost.gameObject.SetActive(showCost);
         }
     }
 

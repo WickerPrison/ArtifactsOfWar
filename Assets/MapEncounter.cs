@@ -6,7 +6,7 @@ public class MapEncounter : MonoBehaviour, IAmDestination
 {
     [SerializeField] GameObject startButton;
     [SerializeField] EnemySquad enemySquad;
-    List<PlayerUnitStats> playerSquad;
+    PlayerSquad playerSquad;
 
     private void OnMouseDown()
     {
@@ -16,7 +16,7 @@ public class MapEncounter : MonoBehaviour, IAmDestination
         }
     }
 
-    public void SquadArrived(List<PlayerUnitStats> squad)
+    public void SquadArrived(PlayerSquad squad)
     {
         StrategyManager.Instance.mustInteracts++;
         playerSquad = squad;
@@ -25,7 +25,7 @@ public class MapEncounter : MonoBehaviour, IAmDestination
 
     public void StartCombat()
     {
-        PersistData.combatSquad = new List<PlayerUnitStats>(playerSquad);
+        PersistData.combatSquad = playerSquad;
         PersistData.enemySquad = enemySquad;
         SceneManager.LoadScene("Combat");
     }

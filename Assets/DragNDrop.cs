@@ -3,10 +3,12 @@ using UnityEngine.InputSystem;
 using UnityEngine.EventSystems;
 using System.Collections;
 using System;
+using UnityEngine.UI;
 
 public class DragNDrop : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHandler
 {
-    [SerializeField] bool dragNDropEnabled;
+    [SerializeField] Image raycastTarget;
+    public bool dragNDropEnabled;
     RectTransform rectTransform;
     [System.NonSerialized] public Vector2 homePosition;
     public Func<bool> dropAction;
@@ -23,6 +25,7 @@ public class DragNDrop : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDra
             eventData.pointerDrag = null;
             return;
         }
+        raycastTarget.raycastTarget = false;
         homePosition = rectTransform.position;
     }
 
@@ -39,7 +42,7 @@ public class DragNDrop : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDra
         }
     }
 
-    IEnumerator GoToPosition(Vector2 startPos, Vector2 finalPos)
+    public IEnumerator GoToPosition(Vector2 startPos, Vector2 finalPos)
     {
         dragNDropEnabled = false;
         float maxTime = 0.2f;
@@ -52,5 +55,6 @@ public class DragNDrop : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDra
         }
         rectTransform.position = finalPos;
         dragNDropEnabled = true;
+        raycastTarget.raycastTarget = true;
     }
 }

@@ -22,7 +22,7 @@ public class StrategyPath : MonoBehaviour
         line.SetPosition(1, destination.transform.position);
     }
 
-    public void Depart(List<PlayerUnitStats> squad)
+    public void Depart(PlayerSquad squad)
     {
         TravelSquad travelSquad = Instantiate(travelSquadPrefab).GetComponent<TravelSquad>();
         travelSquad.squad = squad;
@@ -33,9 +33,14 @@ public class StrategyPath : MonoBehaviour
         Destroy(gameObject);
     }
 
-    private void Strategy_onDeselectStronghold(object sender, System.EventArgs e)
+    public void DestroyStrategyPath()
     {
         Destroy(gameObject);
+    }
+
+    private void Strategy_onDeselectStronghold(object sender, System.EventArgs e)
+    {
+        DestroyStrategyPath();
     }
 
     private void OnEnable()

@@ -5,7 +5,7 @@ using System;
 
 public class PlayerController : MonoBehaviour
 {
-    public PlayerSquad rawSquad;
+    public PlayerSquadTesting rawSquad;
     List<PlayerUnit> squad = new List<PlayerUnit>();
     [SerializeField] GameObject unitPrefab;
     int frontlinePop = 0;
