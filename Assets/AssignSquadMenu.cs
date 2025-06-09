@@ -60,7 +60,7 @@ public class AssignSquadMenu : MonoBehaviour
     public void Depart()
     {
         if (currentSquadSize == 0) return;
-        PlayerSquad squad = new PlayerSquad(frontRow, backRow);
+        PlayerSquad squad = new PlayerSquad((PlayerUnitStats[])frontRow.Clone(), (PlayerUnitStats[])backRow.Clone());
 
         strategyPath.Depart(squad);
         ClearSquad();
