@@ -47,4 +47,23 @@ public class Stronghold : MonoBehaviour, IAmOrigin, IAmDestination
             StrategyEvents.Instance.SelectStronghold(this);
         }
     }
+
+    private void OnEnable()
+    {
+        StrategyEvents.Instance.onSaveState += Strategy_onSaveState;
+    }
+
+    private void OnDisable()
+    {
+        StrategyEvents.Instance.onSaveState -= Strategy_onSaveState;
+    }
+
+    private void Strategy_onSaveState(object sender, System.EventArgs e)
+    {
+        StrongholdData data = new StrongholdData();
+        data.availableRecruits = new List<PlayerUnitStats>(availableRecruits);
+        data.barracks = new List<PlayerUnitStats>(barracks);
+        data.position = transform.position;
+        PersistData.strongholds.Add(data);
+    }
 }

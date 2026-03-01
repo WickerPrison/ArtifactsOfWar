@@ -6,6 +6,7 @@ public class MapEncounter : MonoBehaviour, IAmDestination
 {
     [SerializeField] GameObject startButton;
     [SerializeField] EnemySquad enemySquad;
+    [SerializeField] int encounterMoney;
     PlayerSquad playerSquad;
 
     private void OnMouseDown()
@@ -27,6 +28,7 @@ public class MapEncounter : MonoBehaviour, IAmDestination
     {
         PersistData.combatSquad = playerSquad;
         PersistData.enemySquad = enemySquad;
+        PersistData.currentEncounterMoney = encounterMoney;
         SceneManager.LoadScene("Combat");
     }
 }

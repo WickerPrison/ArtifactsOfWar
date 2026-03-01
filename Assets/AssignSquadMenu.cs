@@ -74,10 +74,16 @@ public class AssignSquadMenu : MonoBehaviour
         {
             card.stronghold.AddToBarracks(card.unitStats);
         }
-        StrategyEvents.Instance.UpdateStrongholdUnits(squadCards[0].stronghold);
+        if(squadCards.Length > 0)
+        {
+            StrategyEvents.Instance.UpdateStrongholdUnits(squadCards[0].stronghold);
+        }
         ClearSquad();
         background.SetActive(false);
-        strategyPath.DestroyStrategyPath();
+        if(strategyPath != null)
+        {
+            strategyPath.DestroyStrategyPath();
+        }
     }
 
     void ClearSquad()

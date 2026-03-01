@@ -13,7 +13,6 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
-        Debug.Log(PersistData.combatSquad.frontline[0]);
         for(int i = 0; i < 3; i++)
         {
             if (PersistData.combatSquad.frontline[i] == null) continue;
