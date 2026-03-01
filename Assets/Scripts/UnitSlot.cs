@@ -86,7 +86,6 @@ public class UnitSlot : MonoBehaviour
 
     public void SetOccupation(IAmUnit unit)
     {
-        Debug.Log(unit.gameObject.name);
         SubscribeToUnit(unit);
         occupation = unit;
         occupationInspectorDisplay = unit.gameObject.name;

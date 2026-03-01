@@ -25,6 +25,7 @@ public class EnemyUnit : MonoBehaviour, ITakeTurns, IAmUnit
     public event EventHandler onCollapse;
     public GameState turnState { get { return GameState.ENEMY_TURN; } set { } }
     [System.NonSerialized] public List<EnemyUnit> squad;
+    public bool isDead { get; set; } = false;
 
     private void Awake()
     {
@@ -112,6 +113,7 @@ public class EnemyUnit : MonoBehaviour, ITakeTurns, IAmUnit
     {
         onLeaveSlot?.Invoke(this, EventArgs.Empty);
         GlobalEvents.Instance.OnEnemyDeath(this);
+        isDead = true;
         Destroy(gameObject);
     }
 

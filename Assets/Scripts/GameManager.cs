@@ -59,6 +59,11 @@ public class GameManager : MonoBehaviour
         if(readyForTurn.Count > 0)
         {
             currentTurn = readyForTurn.Dequeue();
+            if (currentTurn.isDead)
+            {
+                NextTurn();
+                return;
+            }
             gameState = currentTurn.turnState;
             onNewTurn?.Invoke(this, currentTurn);
             currentTurn.StartTurn();
