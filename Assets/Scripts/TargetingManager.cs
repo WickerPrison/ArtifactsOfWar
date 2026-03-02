@@ -54,7 +54,7 @@ public class TargetingManager : MonoBehaviour
                 }
                 break;
             case TargetingType.BACKLINE_ENEMY:
-                foreach(UnitSlot slot in UnitSlotGroups.Instance.enemyBackline)
+                foreach(UnitSlot slot in UnitSlotGroups.Instance.enemyBackWithCollapsed)
                 {
                     if (!slot.IsEmpty()) slot.Activate(() =>
                     {

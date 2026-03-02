@@ -1,10 +1,11 @@
 using UnityEngine;
 using System;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 public enum GameState
 {
-    PLAYER_TURN, ENEMY_TURN, PAUSED, TURN_METER
+    PLAYER_TURN, ENEMY_TURN, PAUSED, TURN_METER, VICTORY
 }
 
 public class GameManager : MonoBehaviour
@@ -87,5 +88,12 @@ public class GameManager : MonoBehaviour
         currentTurn = null;
         gameState = GameState.TURN_METER;
         NextTurn();
+    }
+
+    public void PlayerVictory()
+    {
+        gameState = GameState.VICTORY;
+        PersistData.GainEncounterRewards();
+        SceneManager.LoadScene("Map");
     }
 }

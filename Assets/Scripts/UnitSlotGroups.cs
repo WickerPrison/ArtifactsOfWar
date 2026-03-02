@@ -74,6 +74,18 @@ public class UnitSlotGroups : MonoBehaviour
             return _enemyFrontWithCollapsed;
         }
     }
+    UnitSlot[] _enemyBackWithCollapsed;
+    public UnitSlot[] enemyBackWithCollapsed
+    {
+        get
+        {
+            if(_enemyBackWithCollapsed == null)
+            {
+                _enemyBackWithCollapsed = enemyBackline.Concat(enemyCollapsedline).ToArray();
+            }
+            return _enemyBackWithCollapsed;
+        }
+    }
 
     private static UnitSlotGroups _instance;
     public static UnitSlotGroups Instance { get { return _instance; } }

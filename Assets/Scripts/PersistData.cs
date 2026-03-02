@@ -24,4 +24,10 @@ public static class PersistData
     {
         strongholds.Clear();
     }
+
+    public static void GainEncounterRewards()
+    {
+        money += currentEncounterMoney;
+        currentEncounterMoney = 0;
+    }
 }

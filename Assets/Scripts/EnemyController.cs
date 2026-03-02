@@ -109,7 +109,7 @@ public class EnemyController : MonoBehaviour
         CheckForCollapse();
         if (squad.Count == 0)
         {
-            Debug.LogWarning("Player Wins");
+            GameManager.Instance.PlayerVictory();
         }
     }
 

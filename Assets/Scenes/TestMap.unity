@@ -573,6 +573,14 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 1943880389}
+    - target: {fileID: 5260406319564075298, guid: 5bbf184d3e6f45e498488f89c6dcd39a, type: 3}
+      propertyPath: enemySquad
+      value: 
+      objectReference: {fileID: 11400000, guid: 93372fc68dc2f7543ab85a670a987c3a, type: 2}
+    - target: {fileID: 5260406319564075298, guid: 5bbf184d3e6f45e498488f89c6dcd39a, type: 3}
+      propertyPath: encounterMoney
+      value: 7000
+      objectReference: {fileID: 0}
     - target: {fileID: 5306532940792128260, guid: 5bbf184d3e6f45e498488f89c6dcd39a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 3.604
