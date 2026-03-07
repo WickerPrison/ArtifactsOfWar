@@ -14,16 +14,12 @@ public static class PersistData
     }
 
     public static List<PlayerUnitStats> army = new List<PlayerUnitStats>();
-    public static List<StrongholdData> strongholds;
+    public static List<StrongholdData> strongholds = new List<StrongholdData>();
+    public static bool strongholdsRandomlyGenerateOnLoad = false;
 
     public static PlayerSquad combatSquad;
     public static EnemySquad enemySquad;
     public static int currentEncounterMoney;
-
-    public static void ClearState()
-    {
-        strongholds.Clear();
-    }
 
     public static void GainEncounterRewards()
     {

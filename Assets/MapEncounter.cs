@@ -29,6 +29,7 @@ public class MapEncounter : MonoBehaviour, IAmDestination
         PersistData.combatSquad = playerSquad;
         PersistData.enemySquad = enemySquad;
         PersistData.currentEncounterMoney = encounterMoney;
+        StrategyEvents.Instance.LoadToPersistData();
         SceneManager.LoadScene("Combat");
     }
 }

@@ -1,17 +1,35 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System;
 
 public class Stronghold : MonoBehaviour, IAmOrigin, IAmDestination
 {
     [System.NonSerialized] public List<PlayerUnitStats> availableRecruits = new List<PlayerUnitStats>();
-    List<PlayerUnitStats> barracks = new List<PlayerUnitStats>();
+    [System.NonSerialized] public List<PlayerUnitStats> barracks = new List<PlayerUnitStats>();
+    bool instantiatedCorrectly = false;
+    [System.NonSerialized] public Guid guid;
+
+    public static Stronghold Create(GameObject prefab, StrongholdData data)
+    {
+        Stronghold stronghold = Instantiate(prefab).GetComponent<Stronghold>();
+        stronghold.transform.position = data.position;
+        stronghold.availableRecruits = new List<PlayerUnitStats>(data.availableRecruits);
+        stronghold.barracks = new List<PlayerUnitStats>(data.barracks);
+        stronghold.guid = data.guid;
+        stronghold.instantiatedCorrectly = true;
+        return stronghold;
+    }
 
     private void Start()
     {
-       for(int i = 0; i < 5; i++)
-       {
-           availableRecruits.Add(GenerateNewRecruit.Instance.GetNewRecruit());
-       }
+        if (!instantiatedCorrectly) Utils.IncorrectInitialization("Stronghold");
+        if (PersistData.strongholdsRandomlyGenerateOnLoad)
+        {
+           for(int i = 0; i < 5; i++)
+           {
+               availableRecruits.Add(GenerateNewRecruit.Instance.GetNewRecruit());
+           }
+        }
     }
 
     public void AddToBarracks(PlayerUnitStats newUnit)
@@ -48,22 +66,19 @@ public class Stronghold : MonoBehaviour, IAmOrigin, IAmDestination
         }
     }
 
+    private void Strategy_onLoadToPersistentData(object sender, EventArgs e)
+    {
+        StrongholdData data = StrongholdData.CreateData(this);
+        Utils.UpsertPersistentList<StrongholdData>(PersistData.strongholds, data);
+    }
+
     private void OnEnable()
     {
-        StrategyEvents.Instance.onSaveState += Strategy_onSaveState;
+        StrategyEvents.Instance.onLoadToPersistData += Strategy_onLoadToPersistentData;
     }
 
     private void OnDisable()
     {
-        StrategyEvents.Instance.onSaveState -= Strategy_onSaveState;
-    }
-
-    private void Strategy_onSaveState(object sender, System.EventArgs e)
-    {
-        StrongholdData data = new StrongholdData();
-        data.availableRecruits = new List<PlayerUnitStats>(availableRecruits);
-        data.barracks = new List<PlayerUnitStats>(barracks);
-        data.position = transform.position;
-        PersistData.strongholds.Add(data);
+        StrategyEvents.Instance.onLoadToPersistData -= Strategy_onLoadToPersistentData;
     }
 }

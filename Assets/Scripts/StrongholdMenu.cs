@@ -80,6 +80,7 @@ public class StrongholdMenu : MonoBehaviour
 
     public void CloseMenu()
     {
+        Debug.Log("close");
         ClearUnitDisplays();
         menu.gameObject.SetActive(false);
         StrategyEvents.Instance.DeselectStronghold();

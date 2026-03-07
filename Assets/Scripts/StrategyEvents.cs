@@ -25,7 +25,7 @@ public class StrategyEvents : MonoBehaviour
     public event EventHandler<StrategyPath> onCreatePath;
     public event EventHandler<PlayerUnitStats> onAddUnitToSquad;
     public event EventHandler onNextDay;
-    public event EventHandler onSaveState;
+    public event EventHandler onLoadToPersistData;
 
     public void SelectStronghold(Stronghold stronghold)
     {
@@ -57,9 +57,8 @@ public class StrategyEvents : MonoBehaviour
         onNextDay?.Invoke(this, EventArgs.Empty);
     }
 
-    public void SaveState()
+    public void LoadToPersistData()
     {
-        PersistData.ClearState();
-        onSaveState?.Invoke(this, EventArgs.Empty);
+        onLoadToPersistData?.Invoke(this, EventArgs.Empty);
     }
 }
