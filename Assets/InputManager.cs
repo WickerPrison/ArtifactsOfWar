@@ -7,16 +7,16 @@ public enum ActionMap
     STRATEGY
 }
 
-
 public class InputManager : MonoBehaviour
 {
     InputSystem_Actions inputActions;
-    TwoWayMap<ActionMap, InputActionMap> mapMap;
+    TwoWayMap<ActionMap, InputActionMap> mapMap = new TwoWayMap<ActionMap, InputActionMap>();
 
     private void Awake()
     {
         inputActions = new InputSystem_Actions();
         mapMap.Add(ActionMap.STRATEGY, inputActions.Strategy);
+        inputActions.Strategy.RightClick.performed += ctx => StrategyEvents.Instance.DeselectAll();
     }
 
     public void SetMap(ActionMap actionMap)

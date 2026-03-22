@@ -17,7 +17,7 @@ public class StrategyManager : MonoBehaviour
     [System.NonSerialized] public TravelSquad travelSquad;
     [System.NonSerialized] public int mustInteracts;
     [System.NonSerialized] public DropSpot dropSpot;
-    InputSystem_Actions inputActions;
+    InputManager inputManager;
 
     private void Awake()
     {
@@ -30,7 +30,8 @@ public class StrategyManager : MonoBehaviour
             _instance = this;
         }
 
-        inputActions = new InputSystem_Actions();
+        inputManager = GetComponent<InputManager>();
+        inputManager.SetMap(ActionMap.STRATEGY);
     }
 
     void Start()
@@ -53,7 +54,7 @@ public class StrategyManager : MonoBehaviour
         travelSquad = null;
     }
 
-    private void Strategy_onDeselectStronghold(object sender, System.EventArgs e)
+    private void Strategy_onDeselectAll(object sender, System.EventArgs e)
     {
         strategyState = StrategyState.UNSELECTED;
         StrategyEvents.Instance.ChangeStrategyState(StrategyState.UNSELECTED);
@@ -72,14 +73,14 @@ public class StrategyManager : MonoBehaviour
     private void OnEnable()
     {
         StrategyEvents.Instance.onSelectStronghold += Strategy_onSelectStronghold;
-        StrategyEvents.Instance.onDeselectStronghold += Strategy_onDeselectStronghold;
         StrategyEvents.Instance.onSelectTravelSquad += Strategy_onSelectTravelSquad;
+        StrategyEvents.Instance.onDeselectAll += Strategy_onDeselectAll;
     }
 
     private void OnDisable()
     {
         StrategyEvents.Instance.onSelectStronghold -= Strategy_onSelectStronghold;
-        StrategyEvents.Instance.onDeselectStronghold -= Strategy_onDeselectStronghold;
         StrategyEvents.Instance.onSelectTravelSquad -= Strategy_onSelectTravelSquad;
+        StrategyEvents.Instance.onDeselectAll -= Strategy_onDeselectAll;
     }
 }

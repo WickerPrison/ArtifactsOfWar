@@ -70,7 +70,7 @@ public class StrongholdMenu : MonoBehaviour
         availableToRecruit.gameObject.SetActive(false);
         barracks.gameObject.SetActive(true);
         buyUnit.gameObject.SetActive(false);
-        assignSquadMenu.ActivateMenu(CloseMenu);
+        assignSquadMenu.ActivateMenu(CloseMenuButton);
     }
 
     public void NewRecruits()
@@ -81,27 +81,39 @@ public class StrongholdMenu : MonoBehaviour
         assignSquadMenu.CloseAssignSquadMenu();
     }
 
-    public void CloseMenu()
+    public void CloseMenuButton()
+    {
+        CloseMenu();
+        StrategyEvents.Instance.DeselectAll();
+    }
+
+    void CloseMenu()
     {
         ClearUnitDisplays();
         menu.gameObject.SetActive(false);
-        StrategyEvents.Instance.DeselectStronghold();
     }
 
     private void OnEnable()
     {
         StrategyEvents.Instance.onSelectStronghold += Strategy_onOpenStrongholdMenu;
         StrategyEvents.Instance.onUpdateStrongholdUnits += Strategy_onUpdateStrongholdUnits;
+        StrategyEvents.Instance.onDeselectAll += Strategy_onDeselectAll;
     }
 
     private void OnDisable()
     {
         StrategyEvents.Instance.onSelectStronghold -= Strategy_onOpenStrongholdMenu;
         StrategyEvents.Instance.onUpdateStrongholdUnits -= Strategy_onUpdateStrongholdUnits;
+        StrategyEvents.Instance.onDeselectAll -= Strategy_onDeselectAll;
     }
 
     private void Strategy_onUpdateStrongholdUnits(object sender, Stronghold stronghold)
     {
         UpdateUnitDisplays(stronghold);
+    }
+
+    private void Strategy_onDeselectAll(object sender, System.EventArgs e)
+    {
+        CloseMenu();
     }
 }
