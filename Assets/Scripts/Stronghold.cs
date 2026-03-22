@@ -2,20 +2,21 @@ using UnityEngine;
 using System.Collections.Generic;
 using System;
 
-public class Stronghold : MonoBehaviour, IAmOrigin, IAmDestination
+public class Stronghold : MonoBehaviour, IAmDestination
 {
     [System.NonSerialized] public List<PlayerUnitStats> availableRecruits = new List<PlayerUnitStats>();
     [System.NonSerialized] public List<PlayerUnitStats> barracks = new List<PlayerUnitStats>();
     bool instantiatedCorrectly = false;
     [System.NonSerialized] public Guid guid;
 
-    public static Stronghold Create(GameObject prefab, StrongholdData data)
+    public static Stronghold Create(GameObject prefab, StrongholdData data, int generateRecruits = 0)
     {
         Stronghold stronghold = Instantiate(prefab).GetComponent<Stronghold>();
         stronghold.transform.position = data.position;
         stronghold.availableRecruits = new List<PlayerUnitStats>(data.availableRecruits);
         stronghold.barracks = new List<PlayerUnitStats>(data.barracks);
         stronghold.guid = data.guid;
+        stronghold.GenerateNewRecruits(generateRecruits);
         stronghold.instantiatedCorrectly = true;
         return stronghold;
     }
@@ -23,12 +24,13 @@ public class Stronghold : MonoBehaviour, IAmOrigin, IAmDestination
     private void Start()
     {
         if (!instantiatedCorrectly) Utils.IncorrectInitialization("Stronghold");
-        if (PersistData.strongholdsRandomlyGenerateOnLoad)
+    }
+
+    void GenerateNewRecruits(int count)
+    {
+        for (int i = 0; i < count; i++)
         {
-           for(int i = 0; i < 5; i++)
-           {
-               availableRecruits.Add(GenerateNewRecruit.Instance.GetNewRecruit());
-           }
+            availableRecruits.Add(GenerateNewRecruit.Instance.GetNewRecruit());
         }
     }
 
@@ -46,11 +48,6 @@ public class Stronghold : MonoBehaviour, IAmOrigin, IAmDestination
     public List<PlayerUnitStats> GetBarracksCount()
     {
         return barracks;
-    }
-
-    public void PrepareDeparture()
-    {
-
     }
 
     public void SquadArrived(PlayerSquad squad)

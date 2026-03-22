@@ -197,6 +197,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   strongholdPrefab: {fileID: 959266146458385585, guid: a0c609bf2af1edb4e9230d7103dda2d6, type: 3}
+  encounterPrefab: {fileID: 8052804285840471036, guid: 5bbf184d3e6f45e498488f89c6dcd39a, type: 3}
+--- !u!114 &476962654 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1702188407306614443, guid: 12be2c1204f7f7f49abe6a4cc215d00d, type: 3}
+  m_PrefabInstance: {fileID: 476962651}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 476962652}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a40ceae00de7a484fb1cf182928f92d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &541988876
 GameObject:
   m_ObjectHideFlags: 0
@@ -297,6 +309,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 852822088947460819, guid: 1dba1bf68825ab042b4cee128a794785, type: 3}
+      propertyPath: assignSquadMenu
+      value: 
+      objectReference: {fileID: 1235009859}
     - target: {fileID: 1156742818896353785, guid: 1dba1bf68825ab042b4cee128a794785, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -377,6 +393,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3363804160846518198, guid: 1dba1bf68825ab042b4cee128a794785, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 476962654}
+    - target: {fileID: 3363804160846518198, guid: 1dba1bf68825ab042b4cee128a794785, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: NextDay
+      objectReference: {fileID: 0}
+    - target: {fileID: 4693007934272381932, guid: 1dba1bf68825ab042b4cee128a794785, type: 3}
+      propertyPath: strategyManager
+      value: 
+      objectReference: {fileID: 476962654}
+    - target: {fileID: 4693007934272381932, guid: 1dba1bf68825ab042b4cee128a794785, type: 3}
+      propertyPath: travelSquadPrefab
+      value: 
+      objectReference: {fileID: 8602468308759556483, guid: 02f1514f411dcd14ebce31c69a13cd96, type: 3}
     - target: {fileID: 6204528920067847732, guid: 1dba1bf68825ab042b4cee128a794785, type: 3}
       propertyPath: m_Name
       value: StrategyCanvas
@@ -386,6 +418,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1dba1bf68825ab042b4cee128a794785, type: 3}
+--- !u!114 &1235009859 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4693007934272381932, guid: 1dba1bf68825ab042b4cee128a794785, type: 3}
+  m_PrefabInstance: {fileID: 1235009858}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec116f5798ab0f64bb6632af1cbbeafe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1323922802
 GameObject:
   m_ObjectHideFlags: 0

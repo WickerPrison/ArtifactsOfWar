@@ -20,12 +20,13 @@ public class StrategyEvents : MonoBehaviour
 
     public event EventHandler<Stronghold> onSelectStronghold;
     public event EventHandler onDeselectStronghold;
+    public event EventHandler<TravelSquad> onSelectTravelSquad;
     public event EventHandler<Stronghold> onUpdateStrongholdUnits;
     public event EventHandler<int> onMoneyChange;
-    public event EventHandler<StrategyPath> onCreatePath;
     public event EventHandler<PlayerUnitStats> onAddUnitToSquad;
     public event EventHandler onNextDay;
     public event EventHandler onLoadToPersistData;
+    public event EventHandler<StrategyState> onChangeStrategyState;
 
     public void SelectStronghold(Stronghold stronghold)
     {
@@ -35,6 +36,11 @@ public class StrategyEvents : MonoBehaviour
     public void DeselectStronghold()
     {
         onDeselectStronghold?.Invoke(this, EventArgs.Empty);
+    }
+
+    public void SelectTravelSquad(TravelSquad travelSquad)
+    {
+        onSelectTravelSquad?.Invoke(this, travelSquad);
     }
 
     public void UpdateStrongholdUnits(Stronghold stronghold)
@@ -47,11 +53,6 @@ public class StrategyEvents : MonoBehaviour
         onMoneyChange?.Invoke(this, amount);
     }
 
-    public void CreatePath(StrategyPath strategyPath)
-    {
-        onCreatePath?.Invoke(this, strategyPath);
-    }
-
     public void NextDay()
     {
         onNextDay?.Invoke(this, EventArgs.Empty);
@@ -60,5 +61,10 @@ public class StrategyEvents : MonoBehaviour
     public void LoadToPersistData()
     {
         onLoadToPersistData?.Invoke(this, EventArgs.Empty);
+    }
+
+    public void ChangeStrategyState(StrategyState newState)
+    {
+        onChangeStrategyState?.Invoke(this, newState);
     }
 }

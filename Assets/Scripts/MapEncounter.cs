@@ -8,12 +8,30 @@ public class MapEncounter : MonoBehaviour, IAmDestination
     [SerializeField] EnemySquad enemySquad;
     [SerializeField] int encounterMoney;
     PlayerSquad playerSquad;
+    Vector3 position;
+    bool instantiatedCorrectly = false;
+
+    public static MapEncounter Create(GameObject prefab, Encounter encounter)
+    {
+        MapEncounter mapEncounter = Instantiate(prefab).GetComponent<MapEncounter>();
+        mapEncounter.position = encounter.position;
+        mapEncounter.transform.position = mapEncounter.position;
+        mapEncounter.enemySquad = encounter.enemySquad;
+        mapEncounter.encounterMoney = encounter.encounterMoney;
+        mapEncounter.instantiatedCorrectly = true;
+        return mapEncounter;
+    }
+
+    private void Start()
+    {
+        if (!instantiatedCorrectly) Utils.IncorrectInitialization("MapEncounter");
+    }
 
     private void OnMouseDown()
     {
         if (StrategyManager.Instance.strategyState == StrategyState.STRONGHOLD)
         {
-            StrategyManager.Instance.CreatePath(this);
+            
         }
     }
 

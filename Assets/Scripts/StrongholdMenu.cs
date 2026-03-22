@@ -9,6 +9,7 @@ public class StrongholdMenu : MonoBehaviour
     [SerializeField] Transform barracks;
     [SerializeField] GameObject unitOptionPrefab;
     [SerializeField] BuyUnit buyUnit;
+    [SerializeField] AssignSquadMenu assignSquadMenu;
 
     private void Start()
     {
@@ -69,6 +70,7 @@ public class StrongholdMenu : MonoBehaviour
         availableToRecruit.gameObject.SetActive(false);
         barracks.gameObject.SetActive(true);
         buyUnit.gameObject.SetActive(false);
+        assignSquadMenu.ActivateMenu(CloseMenu);
     }
 
     public void NewRecruits()
@@ -76,33 +78,26 @@ public class StrongholdMenu : MonoBehaviour
         availableToRecruit.gameObject.SetActive(true);
         barracks.gameObject.SetActive(false);
         buyUnit.gameObject.SetActive(true);
+        assignSquadMenu.CloseAssignSquadMenu();
     }
 
     public void CloseMenu()
     {
-        Debug.Log("close");
         ClearUnitDisplays();
         menu.gameObject.SetActive(false);
         StrategyEvents.Instance.DeselectStronghold();
-    }
-
-    private void Strategy_onCreatePath(object sender, StrategyPath strategyPath)
-    {
-        Barracks();
     }
 
     private void OnEnable()
     {
         StrategyEvents.Instance.onSelectStronghold += Strategy_onOpenStrongholdMenu;
         StrategyEvents.Instance.onUpdateStrongholdUnits += Strategy_onUpdateStrongholdUnits;
-        StrategyEvents.Instance.onCreatePath += Strategy_onCreatePath;
     }
 
     private void OnDisable()
     {
         StrategyEvents.Instance.onSelectStronghold -= Strategy_onOpenStrongholdMenu;
         StrategyEvents.Instance.onUpdateStrongholdUnits -= Strategy_onUpdateStrongholdUnits;
-        StrategyEvents.Instance.onCreatePath -= Strategy_onCreatePath;
     }
 
     private void Strategy_onUpdateStrongholdUnits(object sender, Stronghold stronghold)

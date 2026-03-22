@@ -2,7 +2,7 @@ using UnityEngine;
 
 public enum StrategyState
 {
-    UNSELECTED, STRONGHOLD
+    UNSELECTED, STRONGHOLD, SQUAD
 }
 
 public class StrategyManager : MonoBehaviour
@@ -13,9 +13,11 @@ public class StrategyManager : MonoBehaviour
     public ColorScheme colorScheme;
     [System.NonSerialized] public StrategyState strategyState;
     [SerializeField] GameObject pathPrefab;
-    Stronghold stronghold;
+    [System.NonSerialized] public Stronghold stronghold;
+    [System.NonSerialized] public TravelSquad travelSquad;
     [System.NonSerialized] public int mustInteracts;
     [System.NonSerialized] public DropSpot dropSpot;
+    InputSystem_Actions inputActions;
 
     private void Awake()
     {
@@ -27,12 +29,14 @@ public class StrategyManager : MonoBehaviour
         {
             _instance = this;
         }
+
+        inputActions = new InputSystem_Actions();
     }
 
     void Start()
     {
         strategyState = StrategyState.UNSELECTED;
-        PersistData.money = 500;
+        StrategyEvents.Instance.ChangeStrategyState(strategyState);
     }
 
     public void NextDay()
@@ -41,34 +45,41 @@ public class StrategyManager : MonoBehaviour
         StrategyEvents.Instance.NextDay();
     }
 
-    public void CreatePath(IAmDestination destination)
-    {
-        StrategyPath strategyPath = Instantiate(pathPrefab).GetComponent<StrategyPath>();
-        strategyPath.Setup(stronghold, destination);
-        StrategyEvents.Instance.CreatePath(strategyPath);
-    }
-
     private void Strategy_onSelectStronghold(object sender, Stronghold selectedStronghold)
     {
         strategyState = StrategyState.STRONGHOLD;
+        StrategyEvents.Instance.ChangeStrategyState(strategyState);
         stronghold = selectedStronghold;
+        travelSquad = null;
     }
 
     private void Strategy_onDeselectStronghold(object sender, System.EventArgs e)
     {
         strategyState = StrategyState.UNSELECTED;
+        StrategyEvents.Instance.ChangeStrategyState(StrategyState.UNSELECTED);
         stronghold = null;
+        travelSquad = null;
+    }
+
+    private void Strategy_onSelectTravelSquad(object sender, TravelSquad selectedTravelSquad)
+    {
+        strategyState = StrategyState.SQUAD;
+        StrategyEvents.Instance.ChangeStrategyState(StrategyState.SQUAD);
+        stronghold = null;
+        travelSquad = selectedTravelSquad;
     }
 
     private void OnEnable()
     {
         StrategyEvents.Instance.onSelectStronghold += Strategy_onSelectStronghold;
         StrategyEvents.Instance.onDeselectStronghold += Strategy_onDeselectStronghold;
+        StrategyEvents.Instance.onSelectTravelSquad += Strategy_onSelectTravelSquad;
     }
 
     private void OnDisable()
     {
         StrategyEvents.Instance.onSelectStronghold -= Strategy_onSelectStronghold;
         StrategyEvents.Instance.onDeselectStronghold -= Strategy_onDeselectStronghold;
+        StrategyEvents.Instance.onSelectTravelSquad -= Strategy_onSelectTravelSquad;
     }
 }

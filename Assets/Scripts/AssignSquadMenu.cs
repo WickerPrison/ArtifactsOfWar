@@ -7,9 +7,11 @@ public class AssignSquadMenu : MonoBehaviour
 {
     [SerializeField] GameObject background;
     [SerializeField] Transform squadMembers;
+    [SerializeField] GameObject travelSquadPrefab;
+    [SerializeField] StrategyManager strategyManager;
     int currentSquadSize;
     int maxSquadSize = 4;
-    StrategyPath strategyPath;
+    [System.NonSerialized] public Action closeStrongholdMenu;
 
     PlayerUnitStats[] frontRow = { null, null, null };
     PlayerUnitStats[] backRow = { null, null, null };
@@ -17,6 +19,12 @@ public class AssignSquadMenu : MonoBehaviour
     private void Start()
     {
         background.SetActive(false);
+    }
+
+    public void ActivateMenu(Action closeMenuCallback)
+    {
+        closeStrongholdMenu = closeMenuCallback;
+        background.SetActive(true);
     }
 
     public bool AddUnit(UnitRow row, int pos, DragNDropData data)
@@ -50,19 +58,16 @@ public class AssignSquadMenu : MonoBehaviour
         return true;
     }
 
-    private void Strategy_onCreatePath(object sender, StrategyPath newStrategyPath)
-    {
-        strategyPath = newStrategyPath;
-        background.SetActive(true);
-    }
-
 
     public void Depart()
     {
         if (currentSquadSize == 0) return;
         PlayerSquad squad = new PlayerSquad((PlayerUnitStats[])frontRow.Clone(), (PlayerUnitStats[])backRow.Clone());
 
-        strategyPath.Depart(squad);
+        Vector3 squadPosition = strategyManager.stronghold.transform.position + new Vector3(0.5f, 0.5f, 0);
+        TravelSquadData travelSquadData = new TravelSquadData(squad, squadPosition);
+        TravelSquad.Create(travelSquadPrefab, travelSquadData);
+        closeStrongholdMenu();
         ClearSquad();
         background.SetActive(false);
     }
@@ -80,10 +85,6 @@ public class AssignSquadMenu : MonoBehaviour
         }
         ClearSquad();
         background.SetActive(false);
-        if(strategyPath != null)
-        {
-            strategyPath.DestroyStrategyPath();
-        }
     }
 
     void ClearSquad()
@@ -95,22 +96,5 @@ public class AssignSquadMenu : MonoBehaviour
         {
             Destroy(squadMembers.GetChild(i).gameObject);
         }
-    }
-
-    private void Strategy_onDeselectStronghold(object sender, System.EventArgs e)
-    {
-        CloseAssignSquadMenu();
-    }
-
-    private void OnEnable()
-    {
-        StrategyEvents.Instance.onCreatePath += Strategy_onCreatePath;
-        StrategyEvents.Instance.onDeselectStronghold += Strategy_onDeselectStronghold;
-    }
-
-    private void OnDisable()
-    {
-        StrategyEvents.Instance.onCreatePath -= Strategy_onCreatePath;
-        StrategyEvents.Instance.onDeselectStronghold += Strategy_onDeselectStronghold;
     }
 }

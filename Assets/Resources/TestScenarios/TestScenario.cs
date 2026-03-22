@@ -5,5 +5,7 @@ using UnityEngine;
 public class TestScenario : ScriptableObject
 {
     public bool strongholdsRandomlyGenerateOnLoad;
+    public int money;
     public List<TestStronghold> strongholds;
+    public List<Encounter> encounters;
 }

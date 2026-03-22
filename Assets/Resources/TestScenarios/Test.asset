@@ -13,5 +13,8 @@ MonoBehaviour:
   m_Name: Test
   m_EditorClassIdentifier: 
   strongholdsRandomlyGenerateOnLoad: 1
+  money: 500
   strongholds:
   - {fileID: 11400000, guid: 9c9a6707592be8449a0fa949f03dcc80, type: 2}
+  encounters:
+  - {fileID: 11400000, guid: afe8dbc6e8975e04c96042cf6b78a3b3, type: 2}

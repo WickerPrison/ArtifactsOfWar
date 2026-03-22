@@ -6,8 +6,8 @@ public class GenerateNewRecruit : MonoBehaviour
     public static GenerateNewRecruit Instance { get { return _instance; } }
 
     [SerializeField] UnitType[] possibleTypes;
-    string[] firstNames = { "Steve", "Bob", "Susan", "Larry" };
-    string[] lastNames = {"Stevenson", "Smith", "Zhang", "Black"};
+    static string[] firstNames = { "Steve", "Bob", "Susan", "Larry" };
+    static string[] lastNames = {"Stevenson", "Smith", "Zhang", "Black"};
 
     private void Awake()
     {
@@ -24,7 +24,6 @@ public class GenerateNewRecruit : MonoBehaviour
     public PlayerUnitStats GetNewRecruit()
     {
         PlayerUnitStats unitStats = new PlayerUnitStats(GetUnitType());
-        unitStats.unitName = GetRandomName();
         return unitStats;
     }
 
@@ -34,7 +33,7 @@ public class GenerateNewRecruit : MonoBehaviour
         return possibleTypes[randInt];
     }
 
-    string GetRandomName()
+    public static string GetRandomName()
     {
         string name = "";
         int randInt = Random.Range(0, firstNames.Length);

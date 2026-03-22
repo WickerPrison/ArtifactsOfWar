@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1919155204348799112}
   - component: {fileID: 1702188407306614443}
   - component: {fileID: 8488913396885672667}
+  - component: {fileID: 8542581088324662770}
   m_Layer: 0
   m_Name: StrategyGameManager
   m_TagString: Untagged
@@ -75,3 +76,15 @@ MonoBehaviour:
   possibleTypes:
   - {fileID: 11400000, guid: 7e26d1eb7e10058409c98a59d3be9698, type: 2}
   - {fileID: 11400000, guid: 10018639abef9874bab1cd61617793fe, type: 2}
+--- !u!114 &8542581088324662770
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6535436906030639962}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1557088be6c30f04aa63c26c9c454fff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
