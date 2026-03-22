@@ -43,6 +43,7 @@ public class StrategyManager : MonoBehaviour
     public void NextDay()
     {
         if (mustInteracts > 0) return; 
+        DeselectAll();
         StrategyEvents.Instance.NextDay();
     }
 
@@ -55,6 +56,11 @@ public class StrategyManager : MonoBehaviour
     }
 
     private void Strategy_onDeselectAll(object sender, System.EventArgs e)
+    {
+        DeselectAll();
+    }
+
+    void DeselectAll()
     {
         strategyState = StrategyState.UNSELECTED;
         StrategyEvents.Instance.ChangeStrategyState(StrategyState.UNSELECTED);

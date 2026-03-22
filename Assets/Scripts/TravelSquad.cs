@@ -1,5 +1,7 @@
-using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 
 public enum TravelSquadState
 {
@@ -9,7 +11,7 @@ public enum TravelSquadState
 public class TravelSquad : MonoBehaviour
 {
     public PlayerSquad squad;
-    [System.NonSerialized] public IAmDestination destination;
+    [System.NonSerialized] public Vector3 destination;
     float speed = 1f;
     bool instantiatedCorrectly = false;
     [SerializeField] SpriteRenderer selected;
@@ -29,7 +31,8 @@ public class TravelSquad : MonoBehaviour
 
     private void Awake()
     {
-        
+        InputManager inputManager = StrategyEvents.Instance.GetComponent<InputManager>();
+        inputManager.inputActions.Strategy.LeftClick.performed += ctx => LeftClick();
     }
 
     private void Start()
@@ -41,23 +44,41 @@ public class TravelSquad : MonoBehaviour
 
     private void Strategy_onNextDay(object sender, System.EventArgs e)
     {
-        if(Vector3.Distance(destination.transform.position, transform.position) <= speed)
+        if(Vector3.Distance(destination, transform.position) <= speed)
         {
-            transform.position = destination.transform.position;
-            destination.SquadArrived(squad);
+            transform.position = destination;
+            destinationMarker.enabled = false;
         }
         else
         {
-            Vector3 direction = destination.transform.position - transform.position;
+            Vector3 direction = destination - transform.position;
             transform.position += direction.normalized * speed;
+            destinationMarker.transform.position = destination;
         }
+    }
+
+    void LeftClick()
+    {
+        if (EventSystem.current.IsPointerOverGameObject()) return;
+        if (state != TravelSquadState.SELECTED) return;
+        Vector3 clickPos = Mouse.current.position.ReadValue();
+        clickPos = Camera.main.ScreenToWorldPoint(clickPos);
+        clickPos.z = 0;
+        SetDestination(clickPos);
+    }
+
+    void SetDestination(Vector3 newDestination)
+    {
+        destination = newDestination;
+        destinationMarker.enabled = true;
+        destinationMarker.transform.position = destination;
     }
 
     void Select()
     {
         selected.enabled = true;
         state = TravelSquadState.SELECTED;
-        if(destination != null)
+        if(destination != transform.position)
         {
             destinationMarker.enabled = true;
         }

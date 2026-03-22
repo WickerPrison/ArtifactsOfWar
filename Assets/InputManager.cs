@@ -9,7 +9,7 @@ public enum ActionMap
 
 public class InputManager : MonoBehaviour
 {
-    InputSystem_Actions inputActions;
+    [System.NonSerialized] public InputSystem_Actions inputActions;
     TwoWayMap<ActionMap, InputActionMap> mapMap = new TwoWayMap<ActionMap, InputActionMap>();
 
     private void Awake()
