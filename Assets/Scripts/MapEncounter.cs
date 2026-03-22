@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 
-public class MapEncounter : MonoBehaviour, IAmDestination
+public class MapEncounter : MonoBehaviour
 {
     [SerializeField] GameObject startButton;
     [SerializeField] EnemySquad enemySquad;
@@ -10,6 +10,7 @@ public class MapEncounter : MonoBehaviour, IAmDestination
     PlayerSquad playerSquad;
     Vector3 position;
     bool instantiatedCorrectly = false;
+    float interactDistance = 1f;
 
     public static MapEncounter Create(GameObject prefab, Encounter encounter)
     {
@@ -49,5 +50,23 @@ public class MapEncounter : MonoBehaviour, IAmDestination
         PersistData.currentEncounterMoney = encounterMoney;
         StrategyEvents.Instance.LoadToPersistData();
         SceneManager.LoadScene("Combat");
+    }
+
+    private void OnEnable()
+    {
+        StrategyEvents.Instance.onUpdateSquadPosition += Strategy_onUpdateSquadPosition;   
+    }
+
+    private void OnDisable()
+    {
+        StrategyEvents.Instance.onUpdateSquadPosition -= Strategy_onUpdateSquadPosition;   
+    }
+
+    private void Strategy_onUpdateSquadPosition(object sender, TravelSquad travelSquad)
+    {
+        if(Vector3.Distance(travelSquad.transform.position, transform.position) <= interactDistance)
+        {
+            SquadArrived(travelSquad.squad);
+        }
     }
 }

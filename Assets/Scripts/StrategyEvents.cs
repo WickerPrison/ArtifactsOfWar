@@ -27,6 +27,7 @@ public class StrategyEvents : MonoBehaviour
     public event EventHandler onLoadToPersistData;
     public event EventHandler<StrategyState> onChangeStrategyState;
     public event EventHandler onDeselectAll;
+    public event EventHandler<TravelSquad> onUpdateSquadPosition;
 
     public void SelectStronghold(Stronghold stronghold)
     {
@@ -66,5 +67,10 @@ public class StrategyEvents : MonoBehaviour
     public void DeselectAll()
     {
         onDeselectAll?.Invoke(this, EventArgs.Empty);
+    }
+
+    public void UpdateSquadPosition(TravelSquad squad)
+    {
+        onUpdateSquadPosition?.Invoke(this, squad);
     }
 }

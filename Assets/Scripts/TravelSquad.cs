@@ -55,6 +55,8 @@ public class TravelSquad : MonoBehaviour
             transform.position += direction.normalized * speed;
             destinationMarker.transform.position = destination;
         }
+
+        StrategyEvents.Instance.UpdateSquadPosition(this);
     }
 
     void LeftClick()

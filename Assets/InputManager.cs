@@ -21,7 +21,17 @@ public class InputManager : MonoBehaviour
 
     public void SetMap(ActionMap actionMap)
     {
-        mapMap.Foreach(map => map.Disable());
+        DisableAll();
         mapMap.Get(actionMap).Enable();
+    }
+
+    void DisableAll()
+    {
+        mapMap.Foreach(map => map.Disable());
+    }
+
+    private void OnDisable()
+    {
+        DisableAll();
     }
 }
