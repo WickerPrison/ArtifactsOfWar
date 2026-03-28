@@ -22,4 +22,14 @@ public static class Utils
             list.Add(data);
         }
     }
+
+    public static void RemovePersistentList<T>(List<T> list, Guid guid) where T : IHaveGuid
+    {
+        int index = list.FindIndex(item => item.guid == guid);
+
+        if (index != -1)
+        {
+            list.RemoveAt(index);
+        }
+    }
 }

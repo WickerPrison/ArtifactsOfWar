@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
+using System;
 
 public class MapEncounter : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class MapEncounter : MonoBehaviour
     Vector3 position;
     bool instantiatedCorrectly = false;
     float interactDistance = 1f;
+    [System.NonSerialized] public Guid guid;
 
     public static MapEncounter Create(GameObject prefab, Encounter encounter)
     {
@@ -19,6 +21,7 @@ public class MapEncounter : MonoBehaviour
         mapEncounter.transform.position = mapEncounter.position;
         mapEncounter.enemySquad = encounter.enemySquad;
         mapEncounter.encounterMoney = encounter.encounterMoney;
+        mapEncounter.guid = encounter.guid;
         mapEncounter.instantiatedCorrectly = true;
         return mapEncounter;
     }
@@ -28,19 +31,9 @@ public class MapEncounter : MonoBehaviour
         if (!instantiatedCorrectly) Utils.IncorrectInitialization("MapEncounter");
     }
 
-    private void OnMouseDown()
+    void ShowStartButton(bool show)
     {
-        if (StrategyManager.Instance.strategyState == StrategyState.STRONGHOLD)
-        {
-            
-        }
-    }
-
-    public void SquadArrived(PlayerSquad squad)
-    {
-        StrategyManager.Instance.mustInteracts++;
-        playerSquad = squad;
-        startButton.SetActive(true);
+        startButton.SetActive(show);
     }
 
     public void StartCombat()
@@ -48,25 +41,43 @@ public class MapEncounter : MonoBehaviour
         PersistData.combatSquad = playerSquad;
         PersistData.enemySquad = enemySquad;
         PersistData.currentEncounterMoney = encounterMoney;
+        Utils.RemovePersistentList(PersistData.encounters, guid);
         StrategyEvents.Instance.LoadToPersistData();
         SceneManager.LoadScene("Combat");
     }
 
     private void OnEnable()
     {
-        StrategyEvents.Instance.onUpdateSquadPosition += Strategy_onUpdateSquadPosition;   
+        StrategyEvents.Instance.onUpdateSquadPosition += Strategy_onUpdateSquadPosition;
+        StrategyEvents.Instance.onChangeStrategyState += Strategy_onChangeStrategyState;
     }
 
     private void OnDisable()
     {
         StrategyEvents.Instance.onUpdateSquadPosition -= Strategy_onUpdateSquadPosition;   
+        StrategyEvents.Instance.onChangeStrategyState -= Strategy_onChangeStrategyState;
     }
 
     private void Strategy_onUpdateSquadPosition(object sender, TravelSquad travelSquad)
     {
         if(Vector3.Distance(travelSquad.transform.position, transform.position) <= interactDistance)
         {
-            SquadArrived(travelSquad.squad);
+            playerSquad = travelSquad.squad;
+            ShowStartButton(true);
+        }
+    }
+
+    private void Strategy_onChangeStrategyState(object sender, StrategyState strategyState)
+    {
+        if (strategyState != StrategyState.SQUAD)
+        {
+            ShowStartButton(false);
+            return;
+        }
+
+        if(Vector3.Distance(StrategyManager.Instance.travelSquad.transform.position, transform.position) <= interactDistance)
+        {
+            ShowStartButton(true);
         }
     }
 }

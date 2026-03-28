@@ -45,16 +45,15 @@ public class StrategyManager : MonoBehaviour
     public void NextDay()
     {
         if (mustInteracts > 0) return; 
-        DeselectAll();
         StrategyEvents.Instance.NextDay();
     }
 
     private void Strategy_onSelectStronghold(object sender, Stronghold selectedStronghold)
     {
         strategyState = StrategyState.STRONGHOLD;
-        StrategyEvents.Instance.ChangeStrategyState(strategyState);
         stronghold = selectedStronghold;
         travelSquad = null;
+        StrategyEvents.Instance.ChangeStrategyState(strategyState);
     }
 
     private void Strategy_onDeselectAll(object sender, System.EventArgs e)
@@ -65,17 +64,17 @@ public class StrategyManager : MonoBehaviour
     void DeselectAll()
     {
         strategyState = StrategyState.UNSELECTED;
-        StrategyEvents.Instance.ChangeStrategyState(StrategyState.UNSELECTED);
         stronghold = null;
         travelSquad = null;
+        StrategyEvents.Instance.ChangeStrategyState(StrategyState.UNSELECTED);
     }
 
     private void Strategy_onSelectTravelSquad(object sender, TravelSquad selectedTravelSquad)
     {
         strategyState = StrategyState.SQUAD;
-        StrategyEvents.Instance.ChangeStrategyState(StrategyState.SQUAD);
         stronghold = null;
         travelSquad = selectedTravelSquad;
+        StrategyEvents.Instance.ChangeStrategyState(StrategyState.SQUAD);
     }
 
     private void OnEnable()
