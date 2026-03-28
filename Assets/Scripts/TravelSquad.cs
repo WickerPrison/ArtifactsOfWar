@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -17,6 +18,7 @@ public class TravelSquad : MonoBehaviour
     [SerializeField] SpriteRenderer selected;
     [SerializeField] SpriteRenderer destinationMarker;
     TravelSquadState state = TravelSquadState.UNSELECTED;
+    [System.NonSerialized] public Guid guid;
 
     public static TravelSquad Create(GameObject prefab, TravelSquadData data)
     {
@@ -25,6 +27,7 @@ public class TravelSquad : MonoBehaviour
         squad.destination = data.destination;
         squad.speed = data.speed;
         squad.transform.position = data.position;
+        squad.guid = data.guid;
         squad.instantiatedCorrectly = true;
         return squad;
     }
@@ -110,15 +113,23 @@ public class TravelSquad : MonoBehaviour
         }
     }
 
+    private void Strategy_onLoadToPersistData(object sender, System.EventArgs e)
+    {
+        TravelSquadData squadData = TravelSquadData.CreateData(this);
+        Utils.UpsertPersistentList<TravelSquadData>(PersistData.travelSquads, squadData);
+    }
+
     private void OnEnable()
     {
         StrategyEvents.Instance.onNextDay += Strategy_onNextDay;
         StrategyEvents.Instance.onChangeStrategyState += Strategy_onChangeStrategyState;
+        StrategyEvents.Instance.onLoadToPersistData += Strategy_onLoadToPersistData;
     }
 
     private void OnDisable()
     {
         StrategyEvents.Instance.onNextDay -= Strategy_onNextDay;
         StrategyEvents.Instance.onChangeStrategyState -= Strategy_onChangeStrategyState;
+        StrategyEvents.Instance.onLoadToPersistData -= Strategy_onLoadToPersistData;
     }
 }

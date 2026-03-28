@@ -8,4 +8,5 @@ public class TestScenario : ScriptableObject
     public int money;
     public List<TestStronghold> strongholds;
     public List<Encounter> encounters;
+    public List<TestTravelSquad> travelSquads;
 }

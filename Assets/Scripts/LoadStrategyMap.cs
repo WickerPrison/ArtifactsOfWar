@@ -4,11 +4,13 @@ public class LoadStrategyMap : MonoBehaviour
 {
     [SerializeField] GameObject strongholdPrefab;
     [SerializeField] GameObject encounterPrefab;
+    [SerializeField] GameObject travelSquadPrefab;
 
     void Start()
     {
         LoadStrongholds();
         LoadEncounters();
+        LoadTravelSquads();
     }
 
     void LoadStrongholds()
@@ -30,6 +32,14 @@ public class LoadStrategyMap : MonoBehaviour
         foreach(Encounter encounter in PersistData.encounters)
         {
             MapEncounter.Create(encounterPrefab, encounter);
+        }
+    }
+
+    void LoadTravelSquads()
+    {
+        foreach(TravelSquadData travelSquad in PersistData.travelSquads)
+        {
+            TravelSquad.Create(travelSquadPrefab, travelSquad);
         }
     }
 }

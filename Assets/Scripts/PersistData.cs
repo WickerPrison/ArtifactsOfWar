@@ -17,6 +17,7 @@ public static class PersistData
     public static List<StrongholdData> strongholds = new List<StrongholdData>();
     public static bool strongholdsRandomlyGenerateOnLoad = false;
     public static List<Encounter> encounters = new List<Encounter>();
+    public static List<TravelSquadData> travelSquads = new List<TravelSquadData>();
 
     public static PlayerSquad combatSquad;
     public static EnemySquad enemySquad;

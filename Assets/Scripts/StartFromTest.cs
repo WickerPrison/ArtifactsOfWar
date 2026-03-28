@@ -17,6 +17,10 @@ public class StartFromTest : MonoBehaviour
         {
             PersistData.encounters.Add(encounter);
         }
+        foreach(TestTravelSquad travelSquad in testScenario.travelSquads)
+        {
+            PersistData.travelSquads.Add(TravelSquadData.CreateFromTestSquad(travelSquad));
+        }
         SceneManager.LoadScene("Map");
     }
 }

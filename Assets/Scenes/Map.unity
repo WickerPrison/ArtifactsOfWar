@@ -198,6 +198,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   strongholdPrefab: {fileID: 959266146458385585, guid: a0c609bf2af1edb4e9230d7103dda2d6, type: 3}
   encounterPrefab: {fileID: 8052804285840471036, guid: 5bbf184d3e6f45e498488f89c6dcd39a, type: 3}
+  travelSquadPrefab: {fileID: 8602468308759556483, guid: 02f1514f411dcd14ebce31c69a13cd96, type: 3}
 --- !u!114 &476962654 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1702188407306614443, guid: 12be2c1204f7f7f49abe6a4cc215d00d, type: 3}
