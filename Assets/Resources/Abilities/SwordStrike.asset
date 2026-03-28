@@ -15,4 +15,5 @@ MonoBehaviour:
   abilityName: Sword Strike
   abilityType: 1
   targetingType: 2
-  damage: 3
+  uncollapseDirection: 0
+  damage: 5

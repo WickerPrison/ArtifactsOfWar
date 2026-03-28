@@ -4,7 +4,6 @@ using System.Collections.Generic;
 
 public class EnemyController : MonoBehaviour
 {
-    public EnemySquad rawSquad;
     List<EnemyUnit> squad = new List<EnemyUnit>();
     int frontlinePop = 0;
     int backlinePop = 0;
@@ -13,8 +12,8 @@ public class EnemyController : MonoBehaviour
     {
         for(int i = 0; i < 3; i++)
         {
-            if (rawSquad.frontline[i] == null) continue;
-            EnemyUnit enemyUnit = Instantiate(rawSquad.frontline[i]).GetComponent<EnemyUnit>();
+            if (PersistData.enemySquad.frontline[i] == null) continue;
+            EnemyUnit enemyUnit = Instantiate(PersistData.enemySquad.frontline[i]).GetComponent<EnemyUnit>();
             squad.Add(enemyUnit);
             enemyUnit.squad = squad;
             enemyUnit.SetSlot(UnitSlotGroups.Instance.enemyFrontline[i]);
@@ -23,8 +22,8 @@ public class EnemyController : MonoBehaviour
 
         for (int i = 0; i < 3; i++)
         {
-            if (rawSquad.backline[i] == null) continue;
-            EnemyUnit enemyUnit = Instantiate(rawSquad.backline[i]).GetComponent<EnemyUnit>();
+            if (PersistData.enemySquad.backline[i] == null) continue;
+            EnemyUnit enemyUnit = Instantiate(PersistData.enemySquad.backline[i]).GetComponent<EnemyUnit>();
             squad.Add(enemyUnit);
             enemyUnit.squad = squad;
             enemyUnit.SetSlot(UnitSlotGroups.Instance.enemyBackline[i]);
@@ -32,50 +31,6 @@ public class EnemyController : MonoBehaviour
         }
         CheckForCollapse();
     }
-
-    //void AddToPrefferedPosition(EnemyUnit unit)
-    //{
-    //    switch (unit.prefferedRow)
-    //    {
-    //        case UnitRow.FRONTLINE:
-    //            AddToFrontRow(unit, () => AddToBackRow(unit, () => Debug.LogError("both rows full")));
-    //            break;
-    //        case (UnitRow.BACKLINE):
-    //            AddToBackRow(unit, () => AddToFrontRow(unit, () => Debug.LogError("both rows full")));
-    //            break;
-    //    }
-    //}
-
-    //void AddToFrontRow(EnemyUnit unit, Action callback)
-    //{
-    //    AddToRow(unit, callback, UnitSlotGroups.Instance.enemyFrontline);
-    //}
-
-    //void AddToBackRow(EnemyUnit unit, Action callback)
-    //{
-    //    AddToRow(unit, callback, UnitSlotGroups.Instance.enemyBackline);
-    //}
-
-    //void AddToRow(EnemyUnit unit, Action callback, UnitSlot[] line)
-    //{
-    //    for (int i = 0; i < 3; i++)
-    //    {
-    //        if (line[i].occupation == null)
-    //        {
-    //            unit.SetSlot(line[i]);
-    //            if(line == UnitSlotGroups.Instance.enemyFrontline)
-    //            {
-    //                frontlinePop += 1;
-    //            }
-    //            else
-    //            {
-    //                backlinePop += 1;
-    //            }
-    //            return;
-    //        }
-    //    }
-    //    callback();
-    //}
 
     private void Gm_onTurnMeter(object sender, EventArgs e)
     {
@@ -154,7 +109,7 @@ public class EnemyController : MonoBehaviour
         CheckForCollapse();
         if (squad.Count == 0)
         {
-            Debug.LogWarning("Player Wins");
+            GameManager.Instance.PlayerVictory();
         }
     }
 

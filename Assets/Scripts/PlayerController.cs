@@ -5,7 +5,7 @@ using System;
 
 public class PlayerController : MonoBehaviour
 {
-    public PlayerSquad rawSquad;
+    //public PlayerSquadTesting rawSquad;
     List<PlayerUnit> squad = new List<PlayerUnit>();
     [SerializeField] GameObject unitPrefab;
     int frontlinePop = 0;
@@ -15,9 +15,9 @@ public class PlayerController : MonoBehaviour
     {
         for(int i = 0; i < 3; i++)
         {
-            if (rawSquad.frontline[i] == null) continue;
+            if (PersistData.combatSquad.frontline[i] == null) continue;
             PlayerUnit playerUnit = Instantiate(unitPrefab).GetComponent<PlayerUnit>();
-            playerUnit.unitStats = new PlayerUnitStats(rawSquad.frontline[i]);
+            playerUnit.unitStats = PersistData.combatSquad.frontline[i];
             squad.Add(playerUnit);
             playerUnit.SetSlot(UnitSlotGroups.Instance.playerFrontline[i]);
             ChangeRowPopulation(UnitRow.FRONTLINE, 1);
@@ -25,9 +25,9 @@ public class PlayerController : MonoBehaviour
 
         for (int i = 0; i < 3; i++)
         {
-            if (rawSquad.backline[i] == null) continue;
+            if (PersistData.combatSquad.backline[i] == null) continue;
             PlayerUnit playerUnit = Instantiate(unitPrefab).GetComponent<PlayerUnit>();
-            playerUnit.unitStats = new PlayerUnitStats(rawSquad.backline[i]);
+            playerUnit.unitStats = PersistData.combatSquad.backline[i];
             squad.Add(playerUnit);
             playerUnit.SetSlot(UnitSlotGroups.Instance.playerBackline[i]);
             ChangeRowPopulation(UnitRow.BACKLINE, 1);

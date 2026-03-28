@@ -62,6 +62,30 @@ public class UnitSlotGroups : MonoBehaviour
         }
         private set { }
     }
+    UnitSlot[] _enemyFrontWithCollapsed;
+    public UnitSlot[] enemyFrontWithCollapsed
+    {
+        get
+        {
+            if(_enemyFrontWithCollapsed == null)
+            {
+                _enemyFrontWithCollapsed = enemyFrontline.Concat(enemyCollapsedline).ToArray();
+            }
+            return _enemyFrontWithCollapsed;
+        }
+    }
+    UnitSlot[] _enemyBackWithCollapsed;
+    public UnitSlot[] enemyBackWithCollapsed
+    {
+        get
+        {
+            if(_enemyBackWithCollapsed == null)
+            {
+                _enemyBackWithCollapsed = enemyBackline.Concat(enemyCollapsedline).ToArray();
+            }
+            return _enemyBackWithCollapsed;
+        }
+    }
 
     private static UnitSlotGroups _instance;
     public static UnitSlotGroups Instance { get { return _instance; } }

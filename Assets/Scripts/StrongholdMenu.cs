@@ -1,13 +1,15 @@
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 public class StrongholdMenu : MonoBehaviour
 {
     [SerializeField] Image menu;
     [SerializeField] Transform availableToRecruit;
     [SerializeField] Transform barracks;
-    [SerializeField] GameObject recruitUnitPrefab;
-    [SerializeField] GameObject displayUnitPrefab;
+    [SerializeField] GameObject unitOptionPrefab;
+    [SerializeField] BuyUnit buyUnit;
+    [SerializeField] AssignSquadMenu assignSquadMenu;
 
     private void Start()
     {
@@ -18,25 +20,35 @@ public class StrongholdMenu : MonoBehaviour
     {
         menu.gameObject.SetActive(true);
         UpdateUnitDisplays(stronghold);
+        NewRecruits();
     }
 
     void UpdateUnitDisplays(Stronghold stronghold)
     {
         ClearUnitDisplays();
-        foreach (PlayerUnitStats unit in stronghold.availableRecruits)
+
+        foreach(PlayerUnitStats unit in stronghold.availableRecruits)
         {
-            UnitMenuCard unitCard = Instantiate(recruitUnitPrefab).GetComponent<UnitMenuCard>();
+            UnitMenuCard unitCard = Instantiate(unitOptionPrefab).GetComponent<UnitMenuCard>();
             unitCard.transform.SetParent(availableToRecruit);
             unitCard.unitStats = unit;
             unitCard.stronghold = stronghold;
+            unitCard.cost.gameObject.SetActive(true);
+            unitCard.EnableDragNDrop(true);
         }
 
         foreach(PlayerUnitStats unit in stronghold.GetBarracksCount())
         {
-            UnitMenuCard unitCard = Instantiate(displayUnitPrefab).GetComponent<UnitMenuCard>();
+            UnitMenuCard unitCard = Instantiate(unitOptionPrefab).GetComponent<UnitMenuCard>();
             unitCard.transform.SetParent(barracks);
             unitCard.unitStats = unit;
             unitCard.stronghold = stronghold;
+            unitCard.cost.gameObject.SetActive(false);
+            unitCard.EnableDragNDrop(true);
+            unitCard.leaveFunc = () =>
+            {
+                stronghold.RemoveFromBarracks(unit);
+            };
         }
     }
 
@@ -47,9 +59,9 @@ public class StrongholdMenu : MonoBehaviour
             Destroy(availableToRecruit.GetChild(i).gameObject);
         }
 
-        for (int i = 0; i < barracks.childCount; i++)
+        for(int i = 0; i < barracks.transform.childCount; i++)
         {
-            Destroy(barracks.GetChild(i).gameObject);
+            Destroy(barracks.transform.GetChild(i).gameObject);
         }
     }
 
@@ -57,15 +69,25 @@ public class StrongholdMenu : MonoBehaviour
     {
         availableToRecruit.gameObject.SetActive(false);
         barracks.gameObject.SetActive(true);
+        buyUnit.gameObject.SetActive(false);
+        assignSquadMenu.ActivateMenu(CloseMenuButton);
     }
 
     public void NewRecruits()
     {
         availableToRecruit.gameObject.SetActive(true);
         barracks.gameObject.SetActive(false);
+        buyUnit.gameObject.SetActive(true);
+        assignSquadMenu.CloseAssignSquadMenu();
     }
 
-    public void CloseMenu()
+    public void CloseMenuButton()
+    {
+        CloseMenu();
+        StrategyEvents.Instance.DeselectAll();
+    }
+
+    void CloseMenu()
     {
         ClearUnitDisplays();
         menu.gameObject.SetActive(false);
@@ -73,18 +95,25 @@ public class StrongholdMenu : MonoBehaviour
 
     private void OnEnable()
     {
-        StrategyEvents.Instance.onOpenStrongholdMenu += Strategy_onOpenStrongholdMenu;
+        StrategyEvents.Instance.onSelectStronghold += Strategy_onOpenStrongholdMenu;
         StrategyEvents.Instance.onUpdateStrongholdUnits += Strategy_onUpdateStrongholdUnits;
+        StrategyEvents.Instance.onDeselectAll += Strategy_onDeselectAll;
     }
 
     private void OnDisable()
     {
-        StrategyEvents.Instance.onOpenStrongholdMenu -= Strategy_onOpenStrongholdMenu;
+        StrategyEvents.Instance.onSelectStronghold -= Strategy_onOpenStrongholdMenu;
         StrategyEvents.Instance.onUpdateStrongholdUnits -= Strategy_onUpdateStrongholdUnits;
+        StrategyEvents.Instance.onDeselectAll -= Strategy_onDeselectAll;
     }
 
     private void Strategy_onUpdateStrongholdUnits(object sender, Stronghold stronghold)
     {
         UpdateUnitDisplays(stronghold);
+    }
+
+    private void Strategy_onDeselectAll(object sender, System.EventArgs e)
+    {
+        CloseMenu();
     }
 }

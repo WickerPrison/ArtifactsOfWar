@@ -365,6 +365,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: RecruitUnitCard Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 7278294702994947717, guid: cc011ca425057294ea9e31c7309bf9fa, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9072490558647439144, guid: cc011ca425057294ea9e31c7309bf9fa, type: 3}
       propertyPath: cost
       value: 

@@ -19,6 +19,7 @@ public class UnitSlot : MonoBehaviour
     [SerializeField] SlotType slotType;
     Action callback;
     [System.NonSerialized] public IAmUnit occupation;
+    [SerializeField] string occupationInspectorDisplay;
     UnitDisplay _occupationDisplay;
     IAmUnit _occupationCache;
     UnitDisplay occupationDisplay 
@@ -87,12 +88,14 @@ public class UnitSlot : MonoBehaviour
     {
         SubscribeToUnit(unit);
         occupation = unit;
+        occupationInspectorDisplay = unit.gameObject.name;
     }
 
     private void Unit_onLeaveSlot(object sender, EventArgs e)
     {
         UnsubscribeToUnit();
         occupation = null;
+        occupationInspectorDisplay = "null";
     }
 
     public void Collapse()
@@ -103,6 +106,7 @@ public class UnitSlot : MonoBehaviour
         occupation.CollapseToSlot(collapseTo);
         UnsubscribeToUnit();
         occupation = null;
+        occupationInspectorDisplay = "null";
     }
 
     public void Uncollapse(UnitRow direction)

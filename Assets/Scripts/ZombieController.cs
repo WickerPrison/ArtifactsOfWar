@@ -24,7 +24,7 @@ public class ZombieController : EnemyUnitController
                 bool moveForward = false;
                 foreach(UnitSlot slot in UnitSlotGroups.Instance.enemyCollapsedline)
                 {
-                    if (slot.occupation.gameObject.GetComponent<EnemyUnit>().prefferedRow == UnitRow.BACKLINE)
+                    if (slot.occupation != null && slot.occupation.gameObject.GetComponent<EnemyUnit>().prefferedRow == UnitRow.BACKLINE)
                     {
                         moveForward = MoveForward();
                         break;

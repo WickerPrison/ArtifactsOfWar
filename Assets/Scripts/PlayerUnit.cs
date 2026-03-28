@@ -13,6 +13,7 @@ public class PlayerUnit : MonoBehaviour, ITakeTurns, IAmUnit
     public event Action<int, int> onUpdateHealth;
     public event EventHandler onLeaveSlot;
     public GameState turnState { get { return GameState.PLAYER_TURN; } set { } }
+    public bool isDead { get; set; } = false;
 
     private void Start()
     {
@@ -91,6 +92,7 @@ public class PlayerUnit : MonoBehaviour, ITakeTurns, IAmUnit
     {
         onLeaveSlot?.Invoke(this, EventArgs.Empty);
         GlobalEvents.Instance.OnPlayerDeath(this);
+        isDead = true;
         Destroy(gameObject);
     }
 

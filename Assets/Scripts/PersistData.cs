@@ -14,4 +14,23 @@ public static class PersistData
     }
 
     public static List<PlayerUnitStats> army = new List<PlayerUnitStats>();
+    public static List<StrongholdData> strongholds = new List<StrongholdData>();
+    public static bool strongholdsRandomlyGenerateOnLoad = false;
+    public static List<Encounter> encounters = new List<Encounter>();
+    public static List<TravelSquadData> travelSquads = new List<TravelSquadData>();
+
+    public static PlayerSquad combatSquad;
+    public static EnemySquad enemySquad;
+    public static int currentEncounterMoney;
+
+    public static void GainEncounterRewards()
+    {
+        money += currentEncounterMoney;
+        currentEncounterMoney = 0;
+    }
+
+    public static void SetMoneyNoEvent(int newTotal)
+    {
+        _money = newTotal;
+    }
 }

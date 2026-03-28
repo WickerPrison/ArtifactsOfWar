@@ -5,9 +5,19 @@ public class MoneyCounter : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI text;
 
-    private void Strategy_onMoneyChange(object sender, int amount)
+    private void Start()
+    {
+        SetMoney(PersistData.money);
+    }
+
+    void SetMoney(int amount)
     {
         text.text = "$ " + amount.ToString();
+    }
+
+    private void Strategy_onMoneyChange(object sender, int amount)
+    {
+        SetMoney(amount);
     }
 
     private void OnEnable()

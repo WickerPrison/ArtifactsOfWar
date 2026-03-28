@@ -19,6 +19,7 @@ public class PlayerUnitStats
         turnMeter = Random.Range(0, 100);
         maxHealth = type.baseHealth;
         health = maxHealth;
+        unitName = GenerateNewRecruit.GetRandomName();
         id = System.Guid.NewGuid().ToString();
     }
 
