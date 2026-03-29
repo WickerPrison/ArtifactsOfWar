@@ -19,6 +19,7 @@ public class TravelSquad : MonoBehaviour
     [SerializeField] SpriteRenderer destinationMarker;
     TravelSquadState state = TravelSquadState.UNSELECTED;
     [System.NonSerialized] public Guid guid;
+    InputManager inputManager;
 
     public static TravelSquad Create(GameObject prefab, TravelSquadData data)
     {
@@ -34,8 +35,7 @@ public class TravelSquad : MonoBehaviour
 
     private void Awake()
     {
-        InputManager inputManager = StrategyEvents.Instance.GetComponent<InputManager>();
-        inputManager.inputActions.Strategy.LeftClick.performed += ctx => LeftClick();
+        inputManager = StrategyEvents.Instance.GetComponent<InputManager>();
     }
 
     private void Start()
@@ -62,7 +62,7 @@ public class TravelSquad : MonoBehaviour
         StrategyEvents.Instance.UpdateSquadPosition(this);
     }
 
-    void LeftClick()
+    void LeftClick(InputAction.CallbackContext ctx)
     {
         if (EventSystem.current.IsPointerOverGameObject()) return;
         if (state != TravelSquadState.SELECTED) return;
@@ -127,6 +127,7 @@ public class TravelSquad : MonoBehaviour
 
     private void OnEnable()
     {
+        inputManager.inputActions.Strategy.LeftClick.performed += LeftClick;
         StrategyEvents.Instance.onNextDay += Strategy_onNextDay;
         StrategyEvents.Instance.onChangeStrategyState += Strategy_onChangeStrategyState;
         StrategyEvents.Instance.onLoadToPersistData += Strategy_onLoadToPersistData;
@@ -134,6 +135,7 @@ public class TravelSquad : MonoBehaviour
 
     private void OnDisable()
     {
+        inputManager.inputActions.Strategy.LeftClick.performed -= LeftClick;
         StrategyEvents.Instance.onNextDay -= Strategy_onNextDay;
         StrategyEvents.Instance.onChangeStrategyState -= Strategy_onChangeStrategyState;
         StrategyEvents.Instance.onLoadToPersistData -= Strategy_onLoadToPersistData;
