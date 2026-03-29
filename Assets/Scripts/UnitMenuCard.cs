@@ -65,7 +65,7 @@ public class UnitMenuCard : MonoBehaviour
         if (unitStats == null) return;
         unitName.text = unitStats.unitName;
         className.text = $"Class: {unitStats.unitType.className}";
-        hp.text = $"HP: {unitStats.maxHealth}";
+        hp.text = $"HP: {unitStats.health} / {unitStats.maxHealth}";
         speed.text = $"Speed: {unitStats.speed}";
         defense.text = $"Defense: " +
             $"<color={backlineColor}>{unitStats.unitType.backlineArmor}</color> " +

@@ -2,12 +2,14 @@ using UnityEngine;
 using System.Collections.Generic;
 using System;
 
-public class Stronghold : MonoBehaviour, IAmDestination
+public class Stronghold : MonoBehaviour
 {
+    [SerializeField] GameObject enterBarracks;
     [System.NonSerialized] public List<PlayerUnitStats> availableRecruits = new List<PlayerUnitStats>();
     [System.NonSerialized] public List<PlayerUnitStats> barracks = new List<PlayerUnitStats>();
     bool instantiatedCorrectly = false;
     [System.NonSerialized] public Guid guid;
+    float interactDistance = 1f;
 
     public static Stronghold Create(GameObject prefab, StrongholdData data, int generateRecruits = 0)
     {
@@ -50,9 +52,24 @@ public class Stronghold : MonoBehaviour, IAmDestination
         return barracks;
     }
 
-    public void SquadArrived(PlayerSquad squad)
+    public void EnterBarracks()
     {
+        PlayerSquad playerSquad = StrategyManager.Instance.travelSquad.squad;
+        foreach(PlayerUnitStats unitStats in playerSquad.frontline)
+        {
+            if(unitStats != null) AddToBarracks(unitStats);
+        }
+        foreach (PlayerUnitStats unitStats in playerSquad.backline)
+        {
+            if(unitStats != null) AddToBarracks(unitStats);
+        }
+        StrategyManager.Instance.travelSquad.DestroySquad();
+        StrategyEvents.Instance.SelectStronghold(this);
+    }
 
+    void ShowEnterButton(bool show)
+    {
+        enterBarracks.SetActive(show);
     }
 
     private void OnMouseDown()
@@ -69,13 +86,39 @@ public class Stronghold : MonoBehaviour, IAmDestination
         Utils.UpsertPersistentList<StrongholdData>(PersistData.strongholds, data);
     }
 
+    private void Strategy_onChangeStrategyState(object sender, StrategyState strategyState)
+    {
+        if(strategyState != StrategyState.SQUAD)
+        {
+            ShowEnterButton(false);
+            return;
+        }
+
+        if (Vector3.Distance(StrategyManager.Instance.travelSquad.transform.position, transform.position) <= interactDistance)
+        {
+            ShowEnterButton(true);
+        }
+    }
+
+    private void Strategy_onUpdateSquadPosition(object sender, TravelSquad travelSquad)
+    {
+        if (Vector3.Distance(travelSquad.transform.position, transform.position) <= interactDistance)
+        {
+            ShowEnterButton(true);
+        }
+    }
+
     private void OnEnable()
     {
         StrategyEvents.Instance.onLoadToPersistData += Strategy_onLoadToPersistentData;
+        StrategyEvents.Instance.onUpdateSquadPosition += Strategy_onUpdateSquadPosition;
+        StrategyEvents.Instance.onChangeStrategyState += Strategy_onChangeStrategyState;
     }
 
     private void OnDisable()
     {
         StrategyEvents.Instance.onLoadToPersistData -= Strategy_onLoadToPersistentData;
+        StrategyEvents.Instance.onUpdateSquadPosition -= Strategy_onUpdateSquadPosition;
+        StrategyEvents.Instance.onChangeStrategyState -= Strategy_onChangeStrategyState;
     }
 }

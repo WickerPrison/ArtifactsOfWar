@@ -96,6 +96,12 @@ public class TravelSquad : MonoBehaviour
         destinationMarker.enabled = false;
     }
 
+    public void DestroySquad()
+    {
+        Utils.RemovePersistentList(PersistData.travelSquads, guid);
+        Destroy(gameObject);
+    }
+
     private void OnMouseDown()
     {
         if (StrategyManager.Instance.strategyState == StrategyState.UNSELECTED)
